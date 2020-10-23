@@ -1,1 +1,1 @@
-# CSCI_187_Group_RecommendationSystem
+# CSCI_187_RecommendationSystem_BlockBusters
