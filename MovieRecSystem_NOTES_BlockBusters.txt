@@ -1,0 +1,32 @@
+CSCI 187 | Movie Recommendation System | Group BlockBusters 
+
+NOTES
+
+October 25, 2020
+    API Key: d72a8e9f
+    OMDb API: https://urldefense.com/v3/__http://www.omdbapi.com/?i=tt3896198&apikey=d72a8e9f__;!!MLMg-p0Z!V3-bJ-INzIZKZL3M2tJgf5_9alEINMVaw-D0luWa_CfrKX4iCW80HPtygDDyug$ 
+
+    OR
+    TMDB API Request: https://api.themoviedb.org/3/movie/550?api_key=1be335fcb8ba9c525f9b9bd2124294d6
+    API Key: 1be335fcb8ba9c525f9b9bd2124294d6
+
+
+
+    Using firebase
+
+    //using axios
+    npm i axios
+
+    //embedding youtube videos? 
+    npm i react-youtube
+    npm i movie-trailer
+
+
+
+
+SIDE NOTES
+    Conventions: 
+        Components have first letter of the first word capitalized.
+        non-components are lower case 
+
+        state is short-term memory (refresh=disappears)
