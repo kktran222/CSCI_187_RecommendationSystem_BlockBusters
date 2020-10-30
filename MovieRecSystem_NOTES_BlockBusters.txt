@@ -12,7 +12,6 @@ October 25, 2020
 
 
 
-    Using firebase
 
     //using axios
     npm i axios
@@ -30,3 +29,7 @@ SIDE NOTES
         non-components are lower case 
 
         state is short-term memory (refresh=disappears)
+
+
+    Genre ID: 
+        https://www.themoviedb.org/talk/5daf6eb0ae36680011d7e6ee
