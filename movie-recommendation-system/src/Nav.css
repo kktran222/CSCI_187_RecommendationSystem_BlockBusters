@@ -23,15 +23,11 @@
 }
 
 .nav__logo {
-  position: fixed;
-  left: 20px;
   width: 130px;
   object-fit: contain;
 }
 
 .nav__avatar {
-  position: fixed;
-  right: 20px;
   width: 30px;
   object-fit: contain;
 }
