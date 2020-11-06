@@ -22,12 +22,29 @@ function Nav() {
         alt="BlockBuster Logo"
       />
 
+<<<<<<< Updated upstream
       <img
         className="nav__avatar"
         src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/366be133850498.56ba69ac36858.png"
         alt="BlockBuster Logo"
       />
     </div>
+=======
+        <img
+          className="nav__login"
+          src="https://www.campwoodlibrary.org/site-assets/images/login-button-png-13.png/@@images/image.png"
+          alt="Login Button"
+        />
+
+        <img
+          className="nav__avatar"
+          src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/366be133850498.56ba69ac36858.png"
+          alt="Login Logo"
+        />
+
+      </div>
+    </div >
+>>>>>>> Stashed changes
   );
 }
 
