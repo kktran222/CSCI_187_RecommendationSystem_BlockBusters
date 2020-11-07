@@ -23,6 +23,8 @@ function App() {
       <Row title="Documentaries" fetchUrl={requests.fetchDocumentaries} />
       <Row title="Western" fetchUrl={requests.fetchWesternMovies} />
       <Row title="Family" fetchUrl={requests.fetchFamily} />
+
+      <Footer />
     </div>
   );
 }
