@@ -31,3 +31,9 @@
   width: 30px;
   object-fit: contain;
 }
+
+.nav__login {
+  position: fixed;
+  right: 70px;
+  height: 30px;
+}
