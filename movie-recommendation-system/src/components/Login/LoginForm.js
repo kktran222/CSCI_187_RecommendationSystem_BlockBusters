@@ -1,10 +1,10 @@
 import React from 'react';
-import InputField from './InputField';
+import InputField from '../InputField/InputField';
 import SubmitButton from './SubmitButton';
-import UserStore from './stores/UserStore';
+import UserStore from '../../stores/UserStore';
 
-class LoginForm extends React.Component{
-    constructor(props){
+class LoginForm extends React.Component {
+    constructor(props) {
         super(props);
         this.state = {
             username: '',
@@ -13,9 +13,9 @@ class LoginForm extends React.Component{
         }
     }
 
-    setInputValue(property, val){
+    setInputValue(property, val) {
         val = val.trim();
-        if(val.length > 12){
+        if (val.length > 12) {
             return;
         }
         this.setState({
@@ -23,7 +23,7 @@ class LoginForm extends React.Component{
         })
     }
 
-    resetForm(){
+    resetForm() {
         this.setState({
             username: '',
             password: '',
@@ -31,20 +31,20 @@ class LoginForm extends React.Component{
         })
     }
 
-    async doLogin(){
-        if(!this.state.username){
+    async doLogin() {
+        if (!this.state.username) {
             return;
         }
-        if(!this.state.password){
+        if (!this.state.password) {
             return;
         }
         this.setState({
             buttonDisabled: true
         })
 
-        try{
+        try {
             let res = await fetch('/login', {
-                method: 'post', 
+                method: 'post',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
@@ -55,44 +55,44 @@ class LoginForm extends React.Component{
                 })
             });
             let result = await res.json();
-            if(result && result.sucess){
+            if (result && result.sucess) {
                 UserStore.isLoggedIn = true;
                 UserStore.username = result.username;
             }
-            else if(result && result.sucess === false){
+            else if (result && result.sucess === false) {
                 this.resetForm();
                 alert(result.msg);
             }
         }
 
-        catch(e){
+        catch (e) {
             console.log(e);
             this.resetForm();
         }
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <div className="loginForm">
                 Log in
-                <InputField 
+                <InputField
                     type='text'
                     placeholder='Username'
-                    value={this.state.username ? this.state.username: ''}
-                    onChange={ (val) => this.setInputValue('username', val)}
+                    value={this.state.username ? this.state.username : ''}
+                    onChange={(val) => this.setInputValue('username', val)}
                 />
 
-                <InputField 
+                <InputField
                     type='password'
                     placeholder='Password'
-                    value={this.state.password ? this.state.password: ''}
-                    onChange={ (val) => this.setInputValue('password', val)}
+                    value={this.state.password ? this.state.password : ''}
+                    onChange={(val) => this.setInputValue('password', val)}
                 />
 
-                <SubmitButton 
+                <SubmitButton
                     text='Login'
                     disabled={this.state.buttonDisabled}
-                    onClick={ () => this.doLogin() }
+                    onClick={() => this.doLogin()}
                 />
             </div>
         );

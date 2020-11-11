@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "./axios"; //axios is an alias here when importing. could actually be named anything you want so doesn't need to be named instance.
+import axios from "../../axios"; //axios is an alias here when importing. could actually be named anything you want so doesn't need to be named instance.
 import "./Row.css";
 import YouTube from "react-youtube";
 import movieTrailer from "movie-trailer";
@@ -32,6 +32,7 @@ function Row({ title, fetchUrl, isLargeRow }) {
     },
   };
 
+  // NEED TO TEST THIS SOMETHING IS WRONG
   const handleClick = (movie) => {
     if (trailerUrl) {
       setTrailerUrl("");
@@ -58,9 +59,8 @@ function Row({ title, fetchUrl, isLargeRow }) {
             key={movie.id}
             onClick={() => handleClick(movie)}
             className={`row__poster ${isLargeRow && "row__posterLarge"}`}
-            src={`${base_url}${
-              isLargeRow ? movie.poster_path : movie.backdrop_path
-            }`}
+            src={`${base_url}${isLargeRow ? movie.poster_path : movie.backdrop_path
+              }`}
             alt={movie.name}
           />
         ))}
