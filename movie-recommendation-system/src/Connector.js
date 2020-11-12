@@ -19,7 +19,7 @@ class Connector extends React.Component {
     
     
     componentDidMount = async () => {
-        firebase.initializeApp(config)
+        firebase.initializeApp(Config)
 
         this.setState({
             database: firebase.database()
