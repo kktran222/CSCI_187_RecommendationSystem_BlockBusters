@@ -1,29 +1,37 @@
 import React from "react";
 import "./App.css";
-import Row from "./Row";
-import requests from "./requests";
-import Banner from "./Banner";
-import Nav from "./Nav";
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import LoginPage from './components/Login/LoginPage';
+import Content from './components/Content/Content';
+import Navbar from "./components/Navbar/Navbar";
+import Footer from "./components/Footer/Footer";
 
 function App() {
+
   return (
-    <div className="app">
-      {/* Nav */}
-      <Nav />
+    <Router>
+      <div className="app">
+        <Navbar />
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/login" component={LoginPage}></Route>
+          <Route path="/content" component={Content}></Route>
 
-      {<Banner />}
-
-      <Row title="Trending Now" fetchUrl={requests.fetchTrending} isLargeRow />
-      <Row title="Top Rated" fetchUrl={requests.fetchTopRated} />
-      <Row title="Action" fetchUrl={requests.fetchActionMovies} />
-      <Row title="Comedy" fetchUrl={requests.fetchComedyMovies} />
-      <Row title="Horror" fetchUrl={requests.fetchHorrorMovies} />
-      <Row title="Romance" fetchUrl={requests.fetchRomanceMovies} />
-      <Row title="Documentaries" fetchUrl={requests.fetchDocumentaries} />
-      <Row title="Western" fetchUrl={requests.fetchWesternMovies} />
-      <Row title="Family" fetchUrl={requests.fetchFamily} />
-    </div>
+        </Switch>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
+const Home = () => (
+  <Router>
+    <div>
+      <Route path="/" component={LoginPage}></Route>
+    </div>
+  </Router>
+
+);
+
 export default App;
+

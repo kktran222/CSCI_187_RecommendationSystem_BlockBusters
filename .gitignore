@@ -1,2 +1,2 @@
-movie-recommendation-system/node_modules
-movie-recommendation-system/yarn.lock
+*/yarn.lock
+.DS_Store

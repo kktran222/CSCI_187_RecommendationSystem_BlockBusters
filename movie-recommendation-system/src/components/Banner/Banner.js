@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "./axios";
-import requests from "./requests";
+import axios from "../../axios";
+import requests from "../../requests";
 import "./Banner.css";
 
 function Banner() {
@@ -11,7 +11,7 @@ function Banner() {
       const request = await axios.get(requests.fetchTrending);
       setMovie(
         request.data.results[
-          Math.floor(Math.random() * request.data.results.length - 1)
+        Math.floor(Math.random() * request.data.results.length - 1)
         ]
       );
       return request;

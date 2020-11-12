@@ -8,9 +8,12 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.0",
-    "firebase": "^8.0.1",
+<<<<<<< HEAD
     "mobx": "^6.0.3",
     "mobx-react": "^7.0.0",
+=======
+    "firebase": "^8.0.1",
+>>>>>>> ea60e7f5b3e6a88ec2810b6eb77db9f61f91f2f0
     "movie-trailer": "^2.0.6",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
