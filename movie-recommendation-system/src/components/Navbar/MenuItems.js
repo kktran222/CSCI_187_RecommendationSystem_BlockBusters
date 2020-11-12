@@ -7,7 +7,7 @@ export const MenuItems = [
         path: "/"
     },
     {
-        title: "Movie",
+        title: "Movies",
         url: '#',
         cName: 'nav-links',
         fontAwesome: 'fas fa-film',
