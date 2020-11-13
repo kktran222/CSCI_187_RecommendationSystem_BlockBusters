@@ -1,6 +1,3 @@
-import firebase from 'firebase'
-
-
 const Config = {
     apiKey: "AIzaSyDlal5nFhxzgV_saGrNzKqd4HQIp4K15bY",
     authDomain: "blockbusterproject.firebaseapp.com",
