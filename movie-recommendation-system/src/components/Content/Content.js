@@ -8,20 +8,21 @@ import Banner from "../Banner/Banner";
 function MovieContent() {
     return (
         <div className="content">
-            {< Banner />}
+            {<Banner />}
 
-            <Row title="Trending Now" fetchUrl={requests.fetchTrending} isLargeRow />
-            <Row title="Top Rated" fetchUrl={requests.fetchTopRated} />
+            <Row title="Trending Now" fetchUrl={requests.fetchTrendingMovie} isLargeRow />
+            <Row title="Top Rated" fetchUrl={requests.fetchTopRatedMovie} />
             <Row title="Action" fetchUrl={requests.fetchActionMovies} />
             <Row title="Comedy" fetchUrl={requests.fetchComedyMovies} />
             <Row title="Horror" fetchUrl={requests.fetchHorrorMovies} />
             <Row title="Romance" fetchUrl={requests.fetchRomanceMovies} />
             <Row title="Documentaries" fetchUrl={requests.fetchDocumentaries} />
             <Row title="Western" fetchUrl={requests.fetchWesternMovies} />
-            <Row title="Family" fetchUrl={requests.fetchFamily} />
+            <Row title="Family" fetchUrl={requests.fetchFamilyMovies} />
         </div>
 
     );
 }
+
 
 export default MovieContent;

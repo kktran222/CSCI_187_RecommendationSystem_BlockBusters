@@ -10,11 +10,11 @@ const Config = {
 };
 
 // Initialize Firebase
-//firebase.initializeApp(Config);
+const firebaseConfig = firebase.initializeApp(Config);
 
 //https://firebase.google.com/docs/database/web/start?authuser=0
 
-export default Config;
+export default firebaseConfig;
 
 //async function firebaseTest() {
 //    var db = firebase.initializeApp(Config).database;
