@@ -1,101 +1,104 @@
-import React from "react";
-import { observer } from 'mobx-react';
-import UserStore from '../../stores/UserStore';
-import LoginForm from './LoginForm';
-import SubmitButton from './SubmitButton';
+import React, { useState, useEffect } from "react";
+import fire from "../../firebaseConfig";
+import Login from "./Login";
+import Logout from "../Navbar/Logout";
 import "./LoginPage.css";
 
-class LoginPage extends React.Component {
-  async componentDidMount() {
-    try {
-      let res = await fetch('/isLoggedIn', {
-        method: 'post',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
-      });
+const LoginPage = () => {
+    const [user, setUser] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const [hasAccount, setHasAccount] = useState(false);
 
-      let result = await res.json();
-
-      if (result && result.success) {
-        UserStore.loading = false;
-        UserStore.isLoggedIn = true;
-        UserStore.username = result.username;
-      }
-      else {
-        UserStore.loading = false;
-        UserStore.isLoggedIn = false;
-      }
+    const clearInputs = () => {
+        setEmail('');
+        setPassword('');
     }
-    catch (e) {
-      UserStore.loading = false;
-      UserStore.isLoggedIn = false;
+
+    const clearErrors = () => {
+        setEmailError('');
+        setPasswordError('');
     }
-  }
 
-  // Logout Function
-  async doLogout() {
-    try {
-      let res = await fetch('/logout', {
-        method: 'post',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
-      });
-
-      let result = await res.json();
-
-      if (result && result.success) {
-        UserStore.isLoggedIn = false;
-        UserStore.username = '';
-      }
+    const handleLogin = () => {
+        clearErrors();
+        fire
+            .auth()
+            .signInWithEmailAndPassword(email, password)
+            .catch((err) => {
+                switch (err.code) {
+                    case "auth/invalid-email":
+                    case "auth/user-disabled":
+                    case "auth/user-not-found":
+                        setEmailError(err.message);
+                        break;
+                    case "auth/wrong-password":
+                        setPasswordError(err.message);
+                        break;
+                }
+            });
     }
-    catch (e) {
-      console.log(e);
-    }
-  }
 
-  render() {
-    if (UserStore.loading) {
-      return (
-        <div className="app">
-          <div className="container">
-            Loading, please wait...
-            </div>
+    const handleSignup = () => {
+        clearErrors();
+        fire
+            .auth()
+            .createUserWithEmailAndPassword(email, password)
+            .catch((err) => {
+                switch (err.code) {
+                    case "auth/email-already-in-use":
+                    case "auth/invalid-email":
+                        setEmailError(err.message);
+                        break;
+                    case "auth/weak-password":
+                        setPasswordError(err.message);
+                        break;
+                }
+            });
+    }
+
+    const handleLogout = () => {
+        fire.auth().signOut();
+    }
+
+    const authListener = () => {
+        fire.auth().onAuthStateChanged(user => {
+            if (user) {
+                clearInputs();
+                setUser(user);
+            } else {
+                setUser("");
+            }
+        });
+    }
+
+    useEffect(() => {
+        authListener();
+    }, []);
+
+    return (
+        <div className="LoginForm">
+            {user ? (
+                <Logout handleLogout={handleLogout} />
+            ) : (
+                    <Login
+                        email={email}
+                        setEmail={setEmail}
+                        password={password}
+                        setPassword={setPassword}
+                        handleLogin={handleLogin}
+                        handleSignup={handleSignup}
+                        hasAccount={hasAccount}
+                        setHasAccount={setHasAccount}
+                        emailError={emailError}
+                        passwordError={passwordError}
+                    />
+                )
+            }
         </div>
-      );
-    }
-
-    else {
-      if (UserStore.isLoggedIn) {
-        <div className="app">
-          <div className="container">
-            Welcome{UserStore.username}
-            <SubmitButton
-              text={'Log out'}
-              disabled={false}
-              onClick={() => this.doLogout()}
-            />
-          </div>
-        </div>
-      }
-      return (
-        <div className="app">
-          <div className='container'>
-            {/* <SubmitButton
-              text={'Log out'}
-              disabled={false}
-              onClick={() => this.doLogout()}
-            /> */}
-            <LoginForm />
-          </div>
-        </div>
-      );
-    }
-
-  }
+    );
 }
 
-export default observer(LoginPage);
+export default LoginPage;

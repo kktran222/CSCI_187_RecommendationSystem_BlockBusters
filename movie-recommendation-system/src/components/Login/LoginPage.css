@@ -1,52 +1,96 @@
-
-.container {
-  font-size: 28px;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #111;
-  margin-top: 75px;
-}
-
-.loginForm {
+* {
   box-sizing: border-box;
-  width: 100%;
-  max-width: 400px;
-  padding-left: 20px;
-  padding-right: 20px;
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
 }
 
-.inputField {
-  padding-top: 16px;
-}
-
-.input {
-  box-sizing: border-box;
-  outline: none;
-  border: solid 2px #ffc836;
-  border-radius: 4px;
-  color: white;
-  width: 100%;
-  padding: 12px;
-  font-size: 14px;
-  background: rgba(29, 29, 29, 1);
-}
-
-.submitButton {
-  padding-top: 16px;
-}
-
-.btn {
+button {
   width: 100%;
   min-width: 280px;
   color: #565656;
-  padding: 12px;
-  font-size: 14px;
+  padding: 15px 0;
+  font-size: 16px;
   font-weight: bold;
-  border: solid 2px rgba(255, 255, 255, 1);
+  border: solid 2px rgba(0, 0, 0, 1);
   border-radius: 4px;
-  background: #ffc836;
+  background: white;
   cursor: pointer;
+  letter-spacing: 1px;
 }
+
+.login {
+  width: 100%;
+  min-height: 100vh;
+  padding: 0 20px;
+  background-color: #111;
+  color: #fff;
+  display: flex;
+}
+
+.login .loginContainer {
+  padding: 60px;
+  margin: auto;
+  width: 100%;
+  max-width: 520px;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: radial-gradient(
+    ellipse at left bottom,
+    rgba(255, 200, 54, 1) 0%,
+    rgba(250, 160, 75, .9) 59%,
+    rgba(230, 190, 80, .9) 100%
+  );
+  box-shadow: 0 50px 70px -20px rgba(0, 0, 0, 0.8);
+}
+
+.login .loginContainer label {
+  color: white;
+  margin: 14px 0;
+  display: block;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.login .loginContainer input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 19px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.login .loginContainer .btnContainer {
+  width: 100%;
+  padding: 24px 0;
+}
+
+.login .loginContainer .btnContainer p {
+  margin: 14px 0 0 0;
+  text-align: right;
+  color: #fff;
+}
+
+.login .loginContainer .btnContainer p span {
+  color: #111;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  margin-left: 5px;
+  cursor: pointer;
+  transition: all 400ms ease-in-out;
+}
+
+.login .loginContainer .btnContainer p span:hover {
+  color: blue;
+}
+
+.login .loginContainer .errorMsg {
+  color: red;
+  font-size: 16px;
+}
+

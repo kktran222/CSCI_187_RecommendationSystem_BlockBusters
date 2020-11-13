@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { MenuItems } from "./MenuItems"
 import { Button } from "../Button/Button"
 import { Link } from 'react-router-dom';
+import Logout from './Logout';
 import "./Navbar.css";
 
 
@@ -23,6 +24,8 @@ import "./Navbar.css";
 //       window.removeEventListener("scroll");
 //     };
 //   }, []);
+
+
 
 
 class Navbar extends Component {
@@ -65,14 +68,7 @@ class Navbar extends Component {
           })}
         </ul>
 
-
-        <Link to="/login">
-          <a className="nav-links" href="#" >
-            <Button>
-              Login
-            </Button>
-          </a>
-        </Link>
+        <Logout />
       </nav >
     );
   }
