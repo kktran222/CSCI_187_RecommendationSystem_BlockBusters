@@ -14,6 +14,8 @@ html,
   background-color: #111;
 }
 
-/* .app {
+.app {
   background-color: #111;
-} */
+  min-height: 100%;
+}
+
