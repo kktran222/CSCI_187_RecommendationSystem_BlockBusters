@@ -3,6 +3,7 @@ import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import LoginPage from './components/Login/LoginPage';
 import Content from './components/Content/Content';
+import ContentTV from './components/Content/ContentTV';
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 
@@ -15,6 +16,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/content" component={Content}></Route>
+          <Route path="/contenttv" component={ContentTV}></Route>
 
         </Switch>
         <Footer />
