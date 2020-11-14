@@ -70,7 +70,7 @@ class Navbar extends Component {
           })}
         </ul>
 
-        <Logout />
+        <Logout handleLogout={this.props.handleLogout} />
       </nav >
     );
   }

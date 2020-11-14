@@ -16,7 +16,7 @@ function User({ handleLogout }) {
     return (
         <Router>
             <div className="app">
-                <Navbar />
+                <Navbar handleLogout={handleLogout} />
                 <Button onClick={handleLogout}>
                     Logout Please
                 </Button>
