@@ -4,8 +4,10 @@ import "./App.css";
 import Home from "./components/Home/Home";
 import LoginPage from './components/Login/LoginPage';
 import Content from './components/Content/Content';
+import ContentTV from './components/Content/ContentTV';
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
+import MyList from "./components/MyList/MyList";
 
 function App() {
 
@@ -19,6 +21,8 @@ function App() {
     //       <Route path="/login" exact component={LoginPage} />
     //       <Route path="/logout" exact component={Home} />
     //       <Route path="/content" component={Content}></Route>
+    //        <Route path="/contenttv" component={ContentTV}></Route>
+    // <Route path="/myList" component={MyList}></Route>
 
     //     </Switch>
     //     <Footer />

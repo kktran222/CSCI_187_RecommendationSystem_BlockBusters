@@ -7,7 +7,7 @@ export const MenuItems = [
         path: "/"
     },
     {
-        title: "Movie",
+        title: "Movies",
         url: '#',
         cName: 'nav-links',
         fontAwesome: 'fas fa-film',
@@ -18,7 +18,7 @@ export const MenuItems = [
         url: '#',
         cName: 'nav-links',
         fontAwesome: 'fas fa-tv',
-        path: "/content"
+        path: "/contenttv"
     },
     {
         title: "New Releases",
@@ -33,7 +33,8 @@ export const MenuItems = [
     {
         title: "My List",
         url: '#',
-        cName: 'nav-links'
+        cName: 'nav-links',
+        path: "/myList"
     },
     {
         title: "Account",

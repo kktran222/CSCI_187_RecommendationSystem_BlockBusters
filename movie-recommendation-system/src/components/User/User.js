@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from "../Home/Home";
 import LoginPage from '../Login/LoginPage';
 import Content from '../Content/Content';
+import ContentTV from './components/Content/ContentTV';
+import MyList from "./components/MyList/MyList";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import Logout from "../Navbar/Logout";
@@ -24,6 +26,8 @@ function User({ handleLogout }) {
                     {/* <Route path="/login" exact component={LoginPage} /> */}
                     <Route path="/logout" exact component={Home} />
                     <Route path="/content" component={Content}></Route>
+                    <Route path="/contenttv" component={ContentTV}></Route>
+                    <Route path="/myList" component={MyList}></Route>
 
                 </Switch>
                 <Footer />
