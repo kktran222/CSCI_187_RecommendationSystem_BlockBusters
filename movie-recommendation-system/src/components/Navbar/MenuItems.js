@@ -18,7 +18,7 @@ export const MenuItems = [
         url: '#',
         cName: 'nav-links',
         fontAwesome: 'fas fa-tv',
-        path: "/content"
+        path: "/contenttv"
     },
     {
         title: "New Releases",
