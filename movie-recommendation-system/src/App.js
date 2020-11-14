@@ -5,6 +5,7 @@ import LoginPage from './components/Login/LoginPage';
 import Content from './components/Content/Content';
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
+import MyList from "./components/MyList/MyList";
 
 function App() {
 
@@ -14,8 +15,8 @@ function App() {
         <Navbar />
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/content" component={Content}></Route>
-
+          <Route path="/content" component={Content} />
+          <Route path="/myList" component={MyList}></Route>
         </Switch>
         <Footer />
       </div>

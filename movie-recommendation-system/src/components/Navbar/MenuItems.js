@@ -33,7 +33,8 @@ export const MenuItems = [
     {
         title: "My List",
         url: '#',
-        cName: 'nav-links'
+        cName: 'nav-links',
+        path: "/myList"
     },
     {
         title: "Account",
