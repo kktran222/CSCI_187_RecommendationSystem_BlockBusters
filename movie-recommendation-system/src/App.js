@@ -6,6 +6,7 @@ import Content from './components/Content/Content';
 import ContentTV from './components/Content/ContentTV';
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
+import MyList from "./components/MyList/MyList";
 
 function App() {
 
@@ -15,9 +16,9 @@ function App() {
         <Navbar />
         <Switch>
           <Route path="/" exact component={Home} />
+          <Route path="/myList" component={MyList}></Route>
           <Route path="/content" component={Content}></Route>
           <Route path="/contenttv" component={ContentTV}></Route>
-
         </Switch>
         <Footer />
       </div>
