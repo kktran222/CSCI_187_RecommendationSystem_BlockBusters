@@ -1,15 +1,15 @@
 import React from "react";
 import "../../App.css";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Home from "../Home/Home";
-import LoginPage from '../Login/LoginPage';
-import Content from '../Content/Content';
-import ContentTV from '../Content/ContentTV';
-import MyList from "../MyList/MyList";
+import Home from "../LandingPages/Home/Home";
+import LoginPage from '../LandingPages/Login/LoginPage';
+import Content from './Content/Content';
+import ContentTV from './Content/ContentTV';
+import MyList from "./MyList/MyList";
 import Navbar from "../Navbar/Navbar";
-import Footer from "../Footer/Footer";
-import Logout from "../Navbar/Logout";
-import { Button } from "../Button/Button";
+// import Footer from "../Footer/Footer";
+// import Logout from "../Navbar/Logout";
+// import { Button } from "../Button/Button";
 
 function User({ handleLogout }) {
 
@@ -17,9 +17,6 @@ function User({ handleLogout }) {
         <Router>
             <div className="app">
                 <Navbar handleLogout={handleLogout} />
-                <Button onClick={handleLogout}>
-                    Logout Please
-                </Button>
                 <Switch>
                     <Route path="/" exact component={Home} />
                     <Route path="/home" exact component={Home} />
@@ -30,7 +27,7 @@ function User({ handleLogout }) {
                     <Route path="/myList" component={MyList}></Route>
 
                 </Switch>
-                <Footer />
+                {/* <Footer /> */}
             </div>
         </Router>
     );
