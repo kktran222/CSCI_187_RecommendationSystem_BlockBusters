@@ -56,9 +56,11 @@ function Row({ title, fetchUrl, isLargeRow }) {
   };
 
   const [isOpen, setIsOpen] = React.useState(false);
+  const [modalMovieID, setModalID] = React.useState(null);
 
   const showModal = (movie) => {
     setIsOpen(true);
+    setModalID(movie.id);
   };
 
   const hideModal = () => {
@@ -66,7 +68,6 @@ function Row({ title, fetchUrl, isLargeRow }) {
   };
 
 
-  //NEEDS FIXING
   return (
     <div className="row">
       <h2>{title}</h2>
@@ -87,7 +88,9 @@ function Row({ title, fetchUrl, isLargeRow }) {
               }`}
             alt={movie.name}
           />
-          <Modal show={isOpen} onHide={hideModal}>
+          <Modal show={modalMovieID === movie.id && isOpen}
+            onHide={hideModal}
+            className="row__modal">
             <Modal.Header>{movie.title}</Modal.Header>
             <Modal.Body>{movie.overview}</Modal.Body>
             <Modal.Footer>
