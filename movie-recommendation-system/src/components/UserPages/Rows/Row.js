@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "../../axios"; //axios is an alias here when importing. could actually be named anything you want so doesn't need to be named instance.
+import axios from "../../../axios"; //axios is an alias here when importing. could actually be named anything you want so doesn't need to be named instance.
 import "./Row.css";
 import YouTube from "react-youtube";
 import movieTrailer from "movie-trailer";
