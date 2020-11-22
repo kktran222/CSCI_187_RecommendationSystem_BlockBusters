@@ -1,0 +1,11 @@
+.search-bar{
+    background: rgb(255, 200, 54);
+    padding: 20px;
+    font-size: larger;
+    color: grey;
+    margin-top: 20px;
+}
+
+.poster-image{
+    max-height: 250px;
+}

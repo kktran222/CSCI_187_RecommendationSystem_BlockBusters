@@ -6,6 +6,8 @@ import LoginPage from '../LandingPages/Login/LoginPage';
 import Content from './Content/Content';
 import ContentTV from './Content/ContentTV';
 import MyList from "./MyList/MyList";
+import UserList from "./MyList/UserList/UserListContent";
+import Search from "./Search/Search";
 import Navbar from "../Navbar/Navbar";
 // import Footer from "../Footer/Footer";
 // import Logout from "../Navbar/Logout";
@@ -25,6 +27,8 @@ function User({ handleLogout }) {
                     <Route path="/content" component={Content}></Route>
                     <Route path="/contenttv" component={ContentTV}></Route>
                     <Route path="/myList" component={MyList}></Route>
+                    <Route path="/userList" component={UserList}></Route>
+                    <Route path="/search" component={Search}></Route>
 
                 </Switch>
                 {/* <Footer /> */}
