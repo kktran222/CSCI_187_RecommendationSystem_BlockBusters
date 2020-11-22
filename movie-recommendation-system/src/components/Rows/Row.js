@@ -6,7 +6,7 @@ import movieTrailer from "movie-trailer";
 import Button from 'react-bootstrap/Button';
 import MovieContent from "../Content/Content";
 import Modal from "react-bootstrap/Modal";
-import "bootstrap/dist/css/bootstrap.min.css"; 
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const base_url = "https://images.tmdb.org/t/p/original/";
 
@@ -78,30 +78,30 @@ function Row({ title, fetchUrl, isLargeRow }) {
 
         {movies.map((movie) => (
           <>
-          <img
-            title={movie.title}
-            key={movie.id}
-            onClick={() => showModal(movie)}
-            //onClick={() => handleClick(movie)}
-            className={`row__poster ${isLargeRow && "row__posterLarge"}`}
-            src={`${base_url}${isLargeRow ? movie.poster_path : movie.backdrop_path
-              }`}
-            alt={movie.name}
-          />
-          <Modal show={modalMovieID === movie.id && isOpen}
-            onHide={hideModal}
-            className="row__modal">
-            <Modal.Header>{movie.title}</Modal.Header>
-            <Modal.Body>{movie.overview}</Modal.Body>
-            <Modal.Footer>
-              <button onClick={hideModal}>Exit</button>
-            </Modal.Footer>
-          </Modal>
+            <img
+              title={movie.title}
+              key={movie.id}
+              onClick={() => showModal(movie)}
+              //onClick={() => handleClick(movie)}
+              className={`row__poster ${isLargeRow && "row__posterLarge"}`}
+              src={`${base_url}${isLargeRow ? movie.poster_path : movie.backdrop_path
+                }`}
+              alt={movie.name}
+            />
+            <Modal show={modalMovieID === movie.id && isOpen}
+              onHide={hideModal}
+              className="row__modal">
+              <Modal.Header>{movie.title}</Modal.Header>
+              <Modal.Body>{movie.overview}</Modal.Body>
+              <Modal.Footer>
+                <button onClick={hideModal}>Exit</button>
+              </Modal.Footer>
+            </Modal>
           </>
         ))}
       </div>
       {trailerUrl && <YouTube videoId={trailerUrl} opts={opts} />}
-  
+
     </div>
   );
 }
