@@ -1,9 +1,11 @@
-import React from 'react'
-import './MyList.css'
-import firebase from 'firebase/app'
-import database from 'firebase/database'
-import firebaseD from '../../firebaseConfig.js'
-
+import React from 'react';
+import './MyList.css';
+import firebase from 'firebase/app';
+import database from 'firebase/database';
+import firebaseD from '../../firebaseConfig.js';
+import MyRow from './MyRow.js';
+import Row from '../Rows/Row.js';
+import requests from '../../requests.js';
 
 class AddList extends React.Component {
     constructor (props) {
@@ -14,7 +16,7 @@ class AddList extends React.Component {
         userID: '',
         movieListID: '',
         movies: '',
-        movieList: []
+        movieList: [501, 502, 505]
         }
     }
     
@@ -23,7 +25,9 @@ class AddList extends React.Component {
 
 
         this.setState({
-            database: firebaseD.database()
+            database: firebaseD.database(),
+            movieList: Array([500, 501, 502])
+            
         })
     }
     
@@ -45,7 +49,7 @@ class AddList extends React.Component {
                 if (snapshot.exists()) {
                 const saved = snapshot.val()
                 this.setState({ 
-                    movieList: [...this.state.movieList, saved] 
+                    movieList: [502, 501, 505] 
                     })
                 }
             })
@@ -90,8 +94,12 @@ class AddList extends React.Component {
             <button onClick={this.connect}>Connect</button>
 
           </div>}
+        <div>
+            <MyRow title='test' idArray={this.state.movieList} />
+        </div>
       </div>
+     
     }
 
 }
-export default AddList
+export default AddList;
