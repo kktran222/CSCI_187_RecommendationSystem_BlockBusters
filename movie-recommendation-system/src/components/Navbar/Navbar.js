@@ -1,7 +1,7 @@
 // import React, { useState, useEffect } from "react";
 import React, { Component } from "react";
-import { MenuItems } from "./MenuItems"
-import { Button } from "../Button/Button"
+import { MenuItems } from "./MenuItems";
+import { Button } from "../Button/Button";
 import { Link } from 'react-router-dom';
 import Logout from './Logout';
 import "./Navbar.css";
@@ -31,9 +31,11 @@ import "./Navbar.css";
 class Navbar extends Component {
   state = { clicked: false }
 
+  // Helps close side-menu drop down
   handleClick = () => {
     this.setState({ clicked: !this.state.clicked });
   }
+
 
   render() {
     return (
@@ -68,7 +70,7 @@ class Navbar extends Component {
           })}
         </ul>
 
-        <Logout />
+        <Logout handleLogout={this.props.handleLogout} />
       </nav >
     );
   }
