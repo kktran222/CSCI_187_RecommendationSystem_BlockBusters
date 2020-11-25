@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import fire from "../../firebaseConfig";
 import Login from "./Login";
-import User from "../User/User"
 import Logout from "../Navbar/Logout";
-import Navbar from "../Navbar/Navbar";
 import "./LoginPage.css";
 
 const LoginPage = () => {
@@ -83,7 +81,7 @@ const LoginPage = () => {
     return (
         <div className="LoginForm">
             {user ? (
-                <User handleLogout={handleLogout} />
+                <Logout handleLogout={handleLogout} />
             ) : (
                     <Login
                         email={email}
@@ -99,7 +97,6 @@ const LoginPage = () => {
                     />
                 )
             }
-
         </div>
     );
 }

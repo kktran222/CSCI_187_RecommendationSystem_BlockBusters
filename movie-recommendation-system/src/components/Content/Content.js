@@ -8,8 +8,7 @@ import Banner from "../Banner/Banner";
 function MovieContent() {
     return (
         <div className="content">
-
-            <Banner />
+            {<Banner />}
 
             <Row title="Trending Now" fetchUrl={requests.fetchTrendingMovie} isLargeRow />
             <Row title="Top Rated" fetchUrl={requests.fetchTopRatedMovie} />

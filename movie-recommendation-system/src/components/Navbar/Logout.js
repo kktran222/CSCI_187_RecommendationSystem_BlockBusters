@@ -5,9 +5,13 @@ import { Button } from "../Button/Button";
 const Logout = ({ handleLogout }) => {
     return (
         <section classname="logout">
-            <Button onClick={handleLogout}>
-                Logout Please
-            </Button>
+            <Link to="/logout">
+                <a className="nav-links" href="#" >
+                    <Button onClick={handleLogout}>
+                        Logout
+                    </Button>
+                </a>
+            </Link>
         </section>
     );
 }
