@@ -60,16 +60,6 @@ function MyRow({ title, idArray, isLargeRow }) {
     fetchData();
   }, [idArray]);
 
-   
-  
-  /*
-    async function idArray(url) {
-      const requests = await idArray.map((url) => axios.get(url));
-      setMovies(requests.data.results);
-      return requests;
-    }
-    
-  */
  
   const opts = {
     height: "390",
