@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import fire from "../../../firebaseConfig";
+import fire from "../../firebaseConfig";
 import Login from "./Login";
-import User from "../../UserPages/User"
-import Navbar from "../../Navbar/Navbar";
+import Logout from "../Navbar/Logout";
 import "./LoginPage.css";
-import App from "../../../App";
 
 const LoginPage = () => {
     const [user, setUser] = useState('');
@@ -83,7 +81,7 @@ const LoginPage = () => {
     return (
         <div className="LoginForm">
             {user ? (
-                <User handleLogout={handleLogout} />
+                <Logout handleLogout={handleLogout} />
             ) : (
                     <Login
                         email={email}
@@ -99,7 +97,6 @@ const LoginPage = () => {
                     />
                 )
             }
-
         </div>
     );
 }
