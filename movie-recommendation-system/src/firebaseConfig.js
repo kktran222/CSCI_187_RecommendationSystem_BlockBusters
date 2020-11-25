@@ -19,10 +19,5 @@ const firebaseConfig = firebase.initializeApp(Config);
 
 export default firebaseConfig;
 
-//async function firebaseTest() {
-//    var db = firebase.initializeApp(Config).database;
-//    
-//    db.ref.set({test: "hello", test2: "this is", test3: "a test"});
-//};
 
 

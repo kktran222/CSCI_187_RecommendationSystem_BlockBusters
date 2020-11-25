@@ -41,7 +41,7 @@ class AddList extends React.Component {
     
     connect = async () => {
         try {
-            const { database, userID } = this.state
+            const { database, userID } = this.state;
 
             //await database.ref('/saved/' + userID).remove()
 
