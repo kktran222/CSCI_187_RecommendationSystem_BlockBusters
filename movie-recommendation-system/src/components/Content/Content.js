@@ -1,15 +1,14 @@
 import React from "react";
-import "../../../App.css";
+import "../../App.css";
 import Row from "../Rows/Row";
-import requests from "../../../requests";
+import requests from "../../requests";
 import Banner from "../Banner/Banner";
 
 
 function MovieContent() {
     return (
         <div className="content">
-
-            <Banner />
+            {<Banner />}
 
             <Row title="Trending Now" fetchUrl={requests.fetchTrendingMovie} isLargeRow />
             <Row title="Top Rated" fetchUrl={requests.fetchTopRatedMovie} />
