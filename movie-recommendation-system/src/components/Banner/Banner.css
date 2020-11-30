@@ -18,12 +18,17 @@
 }
 
 .banner__description {
+  position: relative;
+  top: 70px;
   width: 45rem;
   line-height: 1.3;
   padding-top: 1rem;
-  font-size: 0.8rem;
-  max-width: 360px;
-  height: 80px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+  font-size: 1.0rem;
+  max-width: 400px;
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .banner__button {
@@ -39,6 +44,7 @@
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   background-color: rgba(51, 51, 51, 0.5);
+  width: 20px;
 }
 
 .banner__button:hover {
