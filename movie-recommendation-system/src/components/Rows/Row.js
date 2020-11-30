@@ -27,7 +27,7 @@ function Row({ title, fetchUrl, isLargeRow }) {
       const request = await axios.get(fetchUrl);
       setMovies(request.data.results);
       setUserID(101);
-      
+
       return request;
     }
     fetchData();
@@ -72,25 +72,25 @@ function Row({ title, fetchUrl, isLargeRow }) {
   const hideModal = () => {
     setIsOpen(false);
   };
-  async function addToList (movie){
-   
-        try{
-        console.log(movie.id)
-        var movieListID = 1;
-        var splitEmail = firebaseD.auth().currentUser.email.split('@'); //this is vulnerable to attacks probably
-        await firebaseD.database().ref('/saved/' + splitEmail[0]).set({
-          ListID: movieListID,
-          ID: movie.id,
-          title: movie.title
-        })
-        console.log(movie.title + 'has been added to /saved/'+splitEmail[0])
-        console.log(firebaseD.auth())
-       
-      } catch (e) {
-        console.error(e)
-      }
-    };
-  
+  async function addToList(movie) {
+
+    try {
+      console.log(movie.id)
+      var movieListID = 1;
+      var splitEmail = firebaseD.auth().currentUser.email.split('@'); //this is vulnerable to attacks probably
+      await firebaseD.database().ref('/saved/' + splitEmail[0]).set({
+        ListID: movieListID,
+        ID: movie.id,
+        title: movie.title
+      })
+      console.log(movie.title + 'has been added to /saved/' + splitEmail[0])
+      console.log(firebaseD.auth())
+
+    } catch (e) {
+      console.error(e)
+    }
+  };
+
 
   return (
     <div className="row">
@@ -117,26 +117,26 @@ function Row({ title, fetchUrl, isLargeRow }) {
               className="row__modal">
               <Modal.Header>
                 <p>
-                {movie.title}{movie.name}
-                <br></br>
-                <img src={`${base_url}${movie.poster_path}`} width="50%"></img>
+                  {movie.title}{movie.name}
+                  <br></br>
+                  <img src={`${base_url}${movie.poster_path}`} width="50%"></img>
                 </p>
               </Modal.Header>
               <Modal.Body>
                 <p>
                   Released: {movie.release_date}{movie.first_air_date}
                   <br></br><br></br>
-                  Description: 
+                  Description:
                   <br></br>
                   {movie.overview}
                   <br></br><br></br>
                   Rating: {movie.vote_average}/10
                   <br></br><br></br>
-                  <a href={'//www.themoviedb.org/movie/'+ movie.id} target="_blank">More info</a>
+                  <a href={'//www.themoviedb.org/movie/' + movie.id} target="_blank">More info</a>
                 </p>
               </Modal.Body>
               <Modal.Footer>
-                <button onClick={()=>addToList(movie)}>Add to My List</button>
+                <button onClick={() => addToList(movie)}>Add to My List</button>
                 <button onClick={hideModal}>Exit</button>
               </Modal.Footer>
             </Modal>
