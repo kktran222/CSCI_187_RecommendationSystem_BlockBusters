@@ -7,27 +7,6 @@ import Logout from './Logout';
 import "./Navbar.css";
 
 
-// May Need to delete this
-//********Trying to have nav-bar always present ******** */
-// function Nav() {
-//   // class Nav extends Component {
-//   const [show, handleShow] = useState(false);
-
-//   // Nav Bar scrolling effect to become visible
-//   useEffect(() => {
-//     window.addEventListener("scroll", () => {
-//       if (window.scrollY > 100) {
-//         handleShow(true);
-//       } else handleShow(false);
-//     });
-//     return () => {
-//       window.removeEventListener("scroll");
-//     };
-//   }, []);
-
-
-
-
 class Navbar extends Component {
   state = { clicked: false }
 

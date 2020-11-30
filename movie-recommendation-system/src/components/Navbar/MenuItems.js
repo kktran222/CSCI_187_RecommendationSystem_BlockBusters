@@ -21,43 +21,22 @@ export const MenuItems = [
         path: "/contenttv"
     },
     {
-        title: "New Releases",
-        url: '#',
-        cName: 'nav-links'
-    },
-    {
-        title: "Trending",
-        url: '#',
-        cName: 'nav-links'
-    },
-    
-    {
         title: "My List",
         url: '#',
         cName: 'nav-links',
         path: "/myList"
     },
     {
-        title: "User List",
-        url: '#',
-        cName: 'nav-links',
-        path: "/userList"
-    },
-    {
-        title: "Account",
-        url: '#',
-        cName: 'nav-links'
-    },
-    {
-        title: "Help Center",
-        url: '#',
-        cName: 'nav-links'
-    },
-    {
         url: '#',
         cName: 'nav-links',
         fontAwesome: 'fas fa-search',
         path: "/search"
+    },
+    {
+        url: '#',
+        cName: 'nav-links',
+        fontAwesome: 'fas fa-user',
+        path: "/user"
     },
     {
         title: "Login",

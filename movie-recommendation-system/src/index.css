@@ -52,5 +52,14 @@ html,
   outline: none;
   transition: 0.4s ease-out;
 }
-
 /* SEARCH SUBFOLDER END*/
+
+
+
+/* Users.js Begin */
+.user{
+  color: white;
+  text-align: center;
+}
+
+/* Users.js End */
