@@ -23,6 +23,9 @@
   margin-right: 10px;
   transition: transform 450ms;
 }
+.my_row__poster:hover {
+  transform: scale(2);
+}
 .row__poster {
   object-fit: contain;
   width: 100%;

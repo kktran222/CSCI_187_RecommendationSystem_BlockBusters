@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import './MyList.css';
 import firebase from 'firebase/app';
-import database from 'firebase/database';
 import firebaseD from '../../firebaseConfig.js';
-import MyRow from './MyRow.js';
-import Row from '../Rows/Row.js';
-import requests from '../../requests.js';
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "../../axios";
 import '../Rows/Row.css';
+
 
 
 async function getUserMovies(userID, listID) {
@@ -24,7 +21,7 @@ async function getUserMovies(userID, listID) {
     return list;
 };
 
-const base_url = "https://images.tmdb.org/t/p/original/";
+const base_url = "https://images.tmdb.org/t/p/w92/";
 
 async function getResponse(reqs){
     var ret = [];
@@ -46,14 +43,13 @@ async function getResponse(reqs){
     var temp = await ret.resolve
     
     
-    console.log(Array(ret));
-    return Array(ret);
+    console.log(ret);
+    return ret;
 }
 
 function MyList () {
     const [userID, setUserID] = useState(firebaseD.auth().currentUser.uid);
     const [list, setList] = useState([]);
-    const [refresh, setRefresh] = useState(0)
     
     useEffect(() => {
     //Notes:
@@ -62,28 +58,26 @@ function MyList () {
 
     async function fetchData() {
         setUserID(firebaseD.auth().currentUser.uid);
-        console.log('userID'+ userID);
         var temp = await getUserMovies(userID,1);
-        console.log(temp);
         var myRequests = [];
         temp.map((id) => {
             myRequests.push('https://api.themoviedb.org/3/movie/'+(id)+'?api_key=1be335fcb8ba9c525f9b9bd2124294d6&language=en-US'  )
         });
-        console.log(myRequests);
-        var x = await getResponse(myRequests);
+        const x = await getResponse(myRequests);
         console.log(x)
-        await setList(x[0]);
-
-        console.log(list);
+        await setList(x);
+        
+        await console.log(list);
         
         return list;
     }
-        
+      
     
   
     fetchData();
-    }, [list]);
-
+    }, [setList]);
+  const final = list;
+  console.log(final);
     
   const [isOpen, setIsOpen] = React.useState(false);
   const [modalMovieID, setModalID] = React.useState(null);
@@ -98,34 +92,35 @@ function MyList () {
     setIsOpen(false);
   };
     
-  async function removeFromList (movie){
-        try{
-            console.log(movie.title + '(' + movie.id + ')' + ' is about to be removed');
-            var movieListID = 1;//temp value
-            var splitEmail = firebaseD.auth().currentUser.email.split('@');
-            
-            await firebaseD.database().ref('/saved/' + userID + '/'+movieListID+'/').push({
-                ID: movie.id,
-                title: movie.title
-            })
-            console.log(movie.title+'has been added '+splitEmail[0]+' to /saved/'+userID+movieListID)
-            console.log(firebaseD.auth())
-       
-        } catch (e) {
-        console.error(e)
-        }
-   };
+  async function removeFromList (movie, userID, listID){
+        var dbref=firebase.database().ref('/saved/' + userID + '/'+listID+'/')
+        var marked = []
+        await dbref.once('value').then((snapshot) => {
+            snapshot.forEach((i) => {
+                console.log(movie)
+                console.log(i.val().ID)
+                console.log(i.ref)
+                if(i.val().ID == movie) {
+                    i.ref.set(null)
+                     
+                    
+                }
+            });
+        });
+        marked.map((j)=>dbref+j)
+
+    };
 
     return (
         <div className="MyList">
             
-        <h2>{'MyList'}</h2>
+        <h1>{'MyList'}</h1>
         
           {/* container -> posters */}
           <div className="my_row__posters">
             {/* several row__posters(s) */}
 
-            {list.map((movie) => (
+            {final.map((movie) => (
             
               <>
                 <img
@@ -134,7 +129,7 @@ function MyList () {
                   onClick={() => showModal(movie)}
                   //onClick={() => handleClick(movie)}
                   className={`my_row__poster`}
-                  src={require(`${base_url}${movie.poster_path }`)}
+                  src={`${base_url}${movie.poster_path }`}
                   alt={movie.name}
                 />
                 <Modal show={modalMovieID === movie.id && isOpen}
@@ -144,7 +139,7 @@ function MyList () {
                   <Modal.Body>{movie.overview}</Modal.Body>
                   <Modal.Footer>
                     <button onClick={hideModal}>Exit</button>
-                    <button onClick={()=>removeFromList(movie)}>Remove from MyList</button>
+                    <button onClick={()=>removeFromList(movie.id,userID,1)}>Remove from MyList</button>
                   </Modal.Footer>
                 </Modal>
               </>
