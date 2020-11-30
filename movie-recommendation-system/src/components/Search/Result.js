@@ -1,7 +1,7 @@
 import React from 'react';
 import "./Result.css";
 import Modal from "react-bootstrap/Modal";
-
+import firebaseD from "../../firebaseConfig.js" 
 
 const base_url = "https://images.tmdb.org/t/p/original/";
 
@@ -22,6 +22,24 @@ function Result({ movie }) {
         setIsOpen(false);
     };
 
+    async function addToList (movie){//copied from Row.js
+        try{
+            console.log(movie.id);
+            var userID = firebaseD.auth().currentUser.uid
+            var movieListID = 1;//temp value
+            var splitEmail = firebaseD.auth().currentUser.email.split('@');
+            
+            await firebaseD.database().ref('/saved/' + userID + '/'+movieListID+'/').push({
+                ID: movie.id,
+                title: movie.title
+            })
+            console.log(movie.title+'has been added '+splitEmail[0]+' to /saved/'+userID+movieListID)
+            console.log(firebaseD.auth())
+       
+        } catch (e) {
+        console.error(e)
+        }
+   };
 
     return (
         <div className="result">
@@ -55,6 +73,7 @@ function Result({ movie }) {
               </Modal.Body>
               <Modal.Footer>
                 <button onClick={hideModal}>Exit</button>
+                <button onClick={() => addToList(movie)}>Add to My List</button>
               </Modal.Footer>
             </Modal>
             <hr className="hr"></hr>
