@@ -52,9 +52,9 @@ class Search extends React.Component {
 
 
                 <div className="results">
-                    {/* <img title={this.state.title} key={this.state.id} src={`${baseImgUrl}/${imgSize}${this.state.poster}`} />
+                    <img title={this.state.title} key={this.state.id} src={`${baseImgUrl}/${imgSize}${this.state.poster}`} />
                     <h3>{this.state.title}</h3>
-                    <p>{this.state.overview}</p> */}
+                    <p>{this.state.overview}</p>
                     <div className="similar-movies">
                         {
                             this.state.similarMovies.map(movie => (
