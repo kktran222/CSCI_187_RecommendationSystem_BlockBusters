@@ -1,105 +1,158 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import './MyList.css';
 import firebase from 'firebase/app';
-import database from 'firebase/database';
 import firebaseD from '../../firebaseConfig.js';
-import MyRow from './MyRow.js';
-import Row from '../Rows/Row.js';
-import requests from '../../requests.js';
-
-class AddList extends React.Component {
-    constructor (props) {
-        super(props)
-        this.state = {
-        database: null,
-        isConnected: false,
-        userID: '',
-        movieListID: '',
-        movies: '',
-        movieList: [501, 502, 505]
-        }
-    }
-    
-    
-    componentDidMount = async () => {
+import Modal from "react-bootstrap/Modal";
+import "bootstrap/dist/css/bootstrap.min.css";
+import axios from "../../axios";
+import '../Rows/Row.css';
 
 
-        this.setState({
-            database: firebaseD.database(),
-            movieList: Array([500, 501, 502])
+
+async function getUserMovies(userID, listID) {
+    var list = [];
+    await firebase.database().ref('/saved/' + userID + '/'+listID+'/').once('value').then((snapshot) => {
+        snapshot.forEach((i) => {
+        list.push(i.val().ID)
+        });
+        
+    });
+    console.log(list)
+    return list;
+};
+
+const base_url = "https://images.tmdb.org/t/p/w92/";
+
+async function getResponse(reqs){
+    var ret = [];
+    console.log(reqs)
+    await reqs.map(req=>axios.get(req)
+        .then(function (results) {
+            console.log(results.data);
             
+            ret.push(results.data)
+
         })
-    }
+        .catch(function (error) {
+         // handle error
+            console.log(error);
+        })
+        .then(function () {
+            console.log(req)
+        }));
+    var temp = await ret.resolve
     
-    shouldComponentUpdate (nextProps, nextState) {
-      if (this.state.database !== nextState.database) {
-        return false
-      }
-
-      return true
-    }
     
-    connect = async () => {
-        try {
-            const { database, userID } = this.state;
-
-            //await database.ref('/saved/' + userID).remove()
-
-            await database.ref('/saved/' + userID).on('value', snapshot => {
-                if (snapshot.exists()) {
-                const saved = snapshot.val()
-                this.setState({ 
-                    movieList: [502, 501, 505] 
-                    })
-                }
-            })
-
-        this.setState({
-            isConnected: true
-        })
-        } catch (e) {
-            console.error(e)
-        }
-    }
-
-    addMovie = async () => {
-      try {
-        const { database, userID, movies, movieListID } = this.state
-        await database.ref('/saved/' + userID).set({
-          ListID: movieListID,
-          movies
-          
-        })
-        this.setState({
-          movies: ''
-        })
-      } catch (e) {
-        console.error(e)
-      }
-    }
-
-    render () {
-      return <div>
-        {this.state.isConnected ? <div>
-          <h3>add a comma separated list of movies to the list:</h3>
-          <input placeholder='movieListID' value={this.state.movieListID} onChange={(e) => this.setState({ movieListID: e.target.value })} />
-          <input placeholder='movies to be added' value={this.state.movies} onChange={(e) => this.setState({ movies: e.target.value })} />
-          <button onClick={this.addMovie}>Send</button>
-
-          
-        </div>
-          : <div>
-            <h3>What is your userID?:</h3>
-            <input value={this.state.userID} onChange={(e) => this.setState({ userID: e.target.value })} />
-            <button onClick={this.connect}>Connect</button>
-
-          </div>}
-        <div>
-            <MyRow title='test' idArray={this.state.movieList} />
-        </div>
-      </div>
-     
-    }
-
+    console.log(ret);
+    return ret;
 }
-export default AddList;
+
+function MyList () {
+    const [userID, setUserID] = useState(firebaseD.auth().currentUser.uid);
+    const [list, setList] = useState([]);
+    
+    useEffect(() => {
+    //Notes:
+    //if blank [], run once when the row loads, and don't run again
+    //dependencies: if [] contains a variable (e.g. movies), run once when row loads, and then run everytime when movies changes.
+
+    async function fetchData() {
+        setUserID(firebaseD.auth().currentUser.uid);
+        var temp = await getUserMovies(userID,1);
+        var myRequests = [];
+        temp.map((id) => {
+            myRequests.push('https://api.themoviedb.org/3/movie/'+(id)+'?api_key=1be335fcb8ba9c525f9b9bd2124294d6&language=en-US'  )
+        });
+        const x = await getResponse(myRequests);
+        console.log(x)
+        await setList(x);
+        
+        await console.log(list);
+        
+        return list;
+    }
+      
+    
+  
+    fetchData();
+    }, [setList]);
+  const final = list;
+  console.log(final);
+    
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [modalMovieID, setModalID] = React.useState(null);
+
+  const showModal = (movie) => {
+    setIsOpen(true);
+    setModalID(movie.id);
+    console.log(movie.title + 'has been inspected')
+  };
+
+  const hideModal = () => {
+    setIsOpen(false);
+  };
+    
+  async function removeFromList (movie, userID, listID){
+        var dbref=firebase.database().ref('/saved/' + userID + '/'+listID+'/')
+        var marked = []
+        await dbref.once('value').then((snapshot) => {
+            snapshot.forEach((i) => {
+                console.log(movie)
+                console.log(i.val().ID)
+                console.log(i.ref)
+                if(i.val().ID == movie) {
+                    i.ref.set(null)
+                     
+                    
+                }
+            });
+        });
+        marked.map((j)=>dbref+j)
+
+    };
+
+    return (
+        <div className="MyList">
+            
+        <h1>{'MyList'}</h1>
+        
+          {/* container -> posters */}
+          <div className="my_row__posters">
+            {/* several row__posters(s) */}
+
+            {final.map((movie) => (
+            
+              <>
+                <img
+                  title={movie.title}
+                  key={movie.id}
+                  onClick={() => showModal(movie)}
+                  //onClick={() => handleClick(movie)}
+                  className={`my_row__poster`}
+                  src={`${base_url}${movie.poster_path }`}
+                  alt={movie.name}
+                />
+                <Modal show={modalMovieID === movie.id && isOpen}
+                  onHide={hideModal}
+                  className="row__modal">
+                  <Modal.Header>{movie.title}</Modal.Header>
+                  <Modal.Body>{movie.overview}</Modal.Body>
+                  <Modal.Footer>
+                    <button onClick={hideModal}>Exit</button>
+                    <button onClick={()=>removeFromList(movie.id,userID,1)}>Remove from MyList</button>
+                  </Modal.Footer>
+                </Modal>
+              </>
+              
+              
+              
+
+            ))}
+          </div>
+            
+         </div>
+    );
+   }
+
+
+export default MyList;

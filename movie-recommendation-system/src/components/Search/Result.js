@@ -1,7 +1,7 @@
 import React from 'react';
 import "./Result.css";
 import Modal from "react-bootstrap/Modal";
-
+import firebaseD from "../../firebaseConfig.js" 
 
 const base_url = "https://images.tmdb.org/t/p/original/";
 
@@ -22,14 +22,32 @@ function Result({ movie }) {
         setIsOpen(false);
     };
 
+    async function addToList (movie){//copied from Row.js
+        try{
+            console.log(movie.id);
+            var userID = firebaseD.auth().currentUser.uid
+            var movieListID = 1;//temp value
+            var splitEmail = firebaseD.auth().currentUser.email.split('@');
+            
+            await firebaseD.database().ref('/saved/' + userID + '/'+movieListID+'/').push({
+                ID: movie.id,
+                title: movie.title
+            })
+            console.log(movie.title+'has been added '+splitEmail[0]+' to /saved/'+userID+movieListID)
+            console.log(firebaseD.auth())
+       
+        } catch (e) {
+        console.error(e)
+        }
+   };
 
     return (
         <div className="result">
-            <h3>{movie.title}</h3>
+            <h3 style={{color: "white"}}>{movie.title}</h3>
             <br></br>
             <img title={movie.title} key={movie.id} src={`${baseImgUrl}/${imgSize}${movie.poster_path}`} />
-            <p>{movie.overview}</p>
-            <button onClick={() => showModal(movie)}>About</button>
+            <p style={{color: "white"}}>{movie.overview}</p>
+            <button className="resultbtn" onClick={() => showModal(movie)}>About</button>
             <Modal show={modalMovieID === movie.id && isOpen}
               onHide={hideModal}
               className="row__modal">
@@ -55,6 +73,7 @@ function Result({ movie }) {
               </Modal.Body>
               <Modal.Footer>
                 <button onClick={hideModal}>Exit</button>
+                <button onClick={() => addToList(movie)}>Add to My List</button>
               </Modal.Footer>
             </Modal>
             <hr className="hr"></hr>
