@@ -11,3 +11,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+
+
+
+
+/* SEARCH SUBFOLDER BEGIN*/
+.searchbox{
+  display: block;
+  background: rgb(255, 200, 54);
+  padding: 20px;
+  font-size: larger;
+  font-weight: 300;
+  color: grey;
+  margin-top: 20px;
+  border: none;
+  outline: none;
+  transition: 0.4s ease-out;
+}
+
+/* SEARCH SUBFOLDER END*/

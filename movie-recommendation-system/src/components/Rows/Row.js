@@ -28,6 +28,7 @@ function Row({ title, fetchUrl, isLargeRow }) {
       setMovies(request.data.results);
       setUserID(firebaseD.auth().currentUser.uid);
    
+
       return request;
     }
     fetchData();
@@ -115,11 +116,29 @@ function Row({ title, fetchUrl, isLargeRow }) {
             <Modal show={modalMovieID === movie.id && isOpen}
               onHide={hideModal}
               className="row__modal">
-              <Modal.Header>{movie.title}</Modal.Header>
-              <Modal.Body>{movie.overview}</Modal.Body>
+              <Modal.Header>
+                <p>
+                  {movie.title}{movie.name}
+                  <br></br>
+                  <img src={`${base_url}${movie.poster_path}`} width="50%"></img>
+                </p>
+              </Modal.Header>
+              <Modal.Body>
+                <p>
+                  Released: {movie.release_date}{movie.first_air_date}
+                  <br></br><br></br>
+                  Description:
+                  <br></br>
+                  {movie.overview}
+                  <br></br><br></br>
+                  Rating: {movie.vote_average}/10
+                  <br></br><br></br>
+                  <a href={'//www.themoviedb.org/movie/' + movie.id} target="_blank">More info</a>
+                </p>
+              </Modal.Body>
               <Modal.Footer>
+                <button onClick={() => addToList(movie)}>Add to My List</button>
                 <button onClick={hideModal}>Exit</button>
-                <button onClick={()=>addToList(movie)}>Add to MyList</button>
               </Modal.Footer>
             </Modal>
           </>

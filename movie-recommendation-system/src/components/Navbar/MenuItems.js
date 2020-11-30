@@ -37,6 +37,12 @@ export const MenuItems = [
         path: "/myList"
     },
     {
+        title: "User List",
+        url: '#',
+        cName: 'nav-links',
+        path: "/userList"
+    },
+    {
         title: "Account",
         url: '#',
         cName: 'nav-links'
@@ -45,6 +51,12 @@ export const MenuItems = [
         title: "Help Center",
         url: '#',
         cName: 'nav-links'
+    },
+    {
+        url: '#',
+        cName: 'nav-links',
+        fontAwesome: 'fas fa-search',
+        path: "/search"
     },
     {
         title: "Login",
