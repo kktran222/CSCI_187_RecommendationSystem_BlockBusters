@@ -72,8 +72,8 @@ function Result({ movie }) {
                 </p>
               </Modal.Body>
               <Modal.Footer>
-                <button onClick={hideModal}>Exit</button>
                 <button onClick={() => addToList(movie)}>Add to My List</button>
+                <button onClick={hideModal}>Exit</button>
               </Modal.Footer>
             </Modal>
             <hr className="hr"></hr>

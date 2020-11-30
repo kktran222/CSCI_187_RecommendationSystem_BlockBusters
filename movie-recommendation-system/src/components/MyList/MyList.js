@@ -108,13 +108,12 @@ function MyList () {
             });
         });
         marked.map((j)=>dbref+j)
-
     };
 
     return (
         <div className="MyList">
             
-        <h1>{'MyList'}</h1>
+        <h1 style={{color: "white"}}>{'MyList'}</h1>
         
           {/* container -> posters */}
           <div className="my_row__posters">
