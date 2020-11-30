@@ -43,7 +43,7 @@ function Result({ movie }) {
 
     return (
         <div className="result">
-            <h3 style={{color: "white"}}>{movie.title}</h3>
+            <h3 style={{color: "white"} }>{movie.title}</h3>
             <br></br>
             <img title={movie.title} key={movie.id} src={`${baseImgUrl}/${imgSize}${movie.poster_path}`} />
             <p style={{color: "white"}}>{movie.overview}</p>
