@@ -7,6 +7,7 @@ import ContentTV from './components/Content/ContentTV';
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import MyList from "./components/MyList/MyList";
+import Search from "./components/Search/Search";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
           <Route path="/myList" component={MyList}></Route>
           <Route path="/content" component={Content}></Route>
           <Route path="/contenttv" component={ContentTV}></Route>
+          <Route path="/search" component={Search}></Route>
         </Switch>
         <Footer />
       </div>
