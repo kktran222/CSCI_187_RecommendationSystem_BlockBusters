@@ -47,7 +47,7 @@ function Result({ movie }) {
             <br></br>
             <img title={movie.title} key={movie.id} src={`${baseImgUrl}/${imgSize}${movie.poster_path}`} />
             <p style={{color: "white"}}>{movie.overview}</p>
-            <button onClick={() => showModal(movie)}>About</button>
+            <button className="resultbtn" onClick={() => showModal(movie)}>About</button>
             <Modal show={modalMovieID === movie.id && isOpen}
               onHide={hideModal}
               className="row__modal">

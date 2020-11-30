@@ -20,7 +20,7 @@ export const MenuItems = [
         fontAwesome: 'fas fa-tv',
         path: "/contenttv"
     },
-    {
+    /*{
         title: "New Releases",
         url: '#',
         cName: 'nav-links'
@@ -30,6 +30,7 @@ export const MenuItems = [
         url: '#',
         cName: 'nav-links'
     },
+    */
     {
         title: "My List",
         url: '#',
