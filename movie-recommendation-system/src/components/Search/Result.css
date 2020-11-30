@@ -1,0 +1,9 @@
+.result {
+    padding-top: 15px;
+    padding-bottom: 25px;
+    padding-left: 15px;
+}
+
+.hr {
+    border-top: 1px solid yellow;
+}
