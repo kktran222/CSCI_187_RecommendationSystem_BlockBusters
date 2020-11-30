@@ -27,7 +27,7 @@ function Row({ title, fetchUrl, isLargeRow }) {
       const request = await axios.get(fetchUrl);
       setMovies(request.data.results);
       setUserID(101);
-      
+
       return request;
     }
     fetchData();
@@ -72,25 +72,25 @@ function Row({ title, fetchUrl, isLargeRow }) {
   const hideModal = () => {
     setIsOpen(false);
   };
-  async function addToList (movie){
-   
-        try{
-        console.log(movie.id)
-        var movieListID = 1;
-        var splitEmail = firebaseD.auth().currentUser.email.split('@'); //this is vulnerable to attacks probably
-        await firebaseD.database().ref('/saved/' + splitEmail[0]).set({
-          ListID: movieListID,
-          ID: movie.id,
-          title: movie.title
-        })
-        console.log(movie.title + 'has been added to /saved/'+splitEmail[0])
-        console.log(firebaseD.auth())
-       
-      } catch (e) {
-        console.error(e)
-      }
-    };
-  
+  async function addToList(movie) {
+
+    try {
+      console.log(movie.id)
+      var movieListID = 1;
+      var splitEmail = firebaseD.auth().currentUser.email.split('@'); //this is vulnerable to attacks probably
+      await firebaseD.database().ref('/saved/' + splitEmail[0]).set({
+        ListID: movieListID,
+        ID: movie.id,
+        title: movie.title
+      })
+      console.log(movie.title + 'has been added to /saved/' + splitEmail[0])
+      console.log(firebaseD.auth())
+
+    } catch (e) {
+      console.error(e)
+    }
+  };
+
 
   return (
     <div className="row">
@@ -119,7 +119,7 @@ function Row({ title, fetchUrl, isLargeRow }) {
               <Modal.Body>{movie.overview}</Modal.Body>
               <Modal.Footer>
                 <button onClick={hideModal}>Exit</button>
-                <button onClick={()=>addToList(movie)}>Add to MyList</button>
+                <button onClick={() => addToList(movie)}>Add to MyList</button>
               </Modal.Footer>
             </Modal>
           </>

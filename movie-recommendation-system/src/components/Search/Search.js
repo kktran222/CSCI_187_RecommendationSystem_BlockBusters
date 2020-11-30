@@ -1,50 +1,73 @@
-import React, { Component } from "react";
-import './Search.css';
+import React, { useState, Component } from "react";
+import axios from "axios";
+// import SearchPage from './SearchPage';
+import Result from './Result';
 
-class Search extends Component {
-    constructor(props) {
-        super(props);
-        console.log("this is my initializer");
+// function Search() {
+class Search extends React.Component {
+    state = {
+        // title: "",
+        // poster: "",
+        // overview: "",
+        results: "",
+        similarMovies: []
+    }
 
-        const movies = [
-            { id: 0, poster_src: "https://images-na.ssl-images-amazon.com/images/I/71niXI3lxlL._AC_SY741_.jpg", title: "Avengers", overview: "Marvel" },
-            { id: 1, poster_src: "https://images-na.ssl-images-amazon.com/images/I/71niXI3lxlL._AC_SY741_.jpg", title: "Star Wars", overview: "Lucasfilm" },
-        ]
+    clickHandler = (event) => {
+        if (event.key === "Enter") {
+            const query = event.target.value;
+            const API_KEY = "1be335fcb8ba9c525f9b9bd2124294d6";
+            const apiurl = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${query}`;
+            axios.get(apiurl)
+                .then(res => {
+                    // const title = res.data['results'][0]['title'];
+                    // this.setState({ title });
 
-        var movieRows = []
-        movies.forEach((movie) => {
-            console.log(movie.title);
-            const movieRow = <table key={movie.id}>
-                <tbody>
-                    <tr>
-                        <td>
-                            <img className="poster-image" alt="poster" src={movie.poster_src} />
-                        </td>
-                        <td>
-                            {movie.title}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            movieRows.push(movieRow);
-        });
+                    // const poster = res.data['results'][0]['poster_path'];
+                    // this.setState({ poster });
 
-        this.state = { rows: movieRows }
+                    // const overview = res.data['results'][0]['overview'];
+                    // this.setState({ overview });
 
-
+                    this.setState({ results: res.data.results });
+                    const similarMovies = res.data.results.slice(0);
+                    this.setState({ similarMovies })
+                })
+        }
     }
 
     render() {
+        const baseImgUrl = "https://image.tmdb.org/t/p"
+        const imgSize = "w500"
         return (
-            <div className="Search">
-                <input className="search-bar" placeholder="Enter search term" />
+            <div className="search">
+                <section className="searchbox-wrap">
+                    <input
+                        type="text"
+                        placeholder="Search up a movie"
+                        className="searchbox"
+                        onKeyDown={event => this.clickHandler(event)}
+                    />
+                </section>
 
-                {this.state.rows}
 
+                <div className="results">
+                    {/* <img title={this.state.title} key={this.state.id} src={`${baseImgUrl}/${imgSize}${this.state.poster}`} />
+                    <h3>{this.state.title}</h3>
+                    <p>{this.state.overview}</p> */}
+                    <div className="similar-movies">
+                        {
+                            this.state.similarMovies.map(movie => (
+                                <Result key={movie.id} movie={movie} />
+                            ))
+                        }
+                    </div>
 
+                </div>
 
-            </div>
-        );
+            </div >
+
+        )
     }
 }
 
