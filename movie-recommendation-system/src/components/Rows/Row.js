@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../axios"; //axios is an alias here when importing. could actually be named anything you want so doesn't need to be named instance.
-import "./Row.css";
 import YouTube from "react-youtube";
 import database from 'firebase/database';
 import firebaseD from '../../firebaseConfig.js';
@@ -9,6 +8,7 @@ import Button from 'react-bootstrap/Button';
 import MovieContent from "../Content/Content";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./Row.css";
 
 const base_url = "https://images.tmdb.org/t/p/original/";
 
@@ -26,8 +26,8 @@ function Row({ title, fetchUrl, isLargeRow }) {
     async function fetchData() {
       const request = await axios.get(fetchUrl);
       setMovies(request.data.results);
-      setUserID(101);
-      
+      setUserID(firebaseD.auth().currentUser.uid);
+   
       return request;
     }
     fetchData();
@@ -72,24 +72,24 @@ function Row({ title, fetchUrl, isLargeRow }) {
   const hideModal = () => {
     setIsOpen(false);
   };
+  
   async function addToList (movie){
-   
         try{
-        console.log(movie.id)
-        var movieListID = 1;
-        var splitEmail = firebaseD.auth().currentUser.email.split('@'); //this is vulnerable to attacks probably
-        await firebaseD.database().ref('/saved/' + splitEmail[0]).set({
-          ListID: movieListID,
-          ID: movie.id,
-          title: movie.title
-        })
-        console.log(movie.title + 'has been added to /saved/'+splitEmail[0])
-        console.log(firebaseD.auth())
+            console.log(movie.id);
+            var movieListID = 1;//temp value
+            var splitEmail = firebaseD.auth().currentUser.email.split('@');
+            
+            await firebaseD.database().ref('/saved/' + userID + '/'+movieListID+'/').push({
+                ID: movie.id,
+                title: movie.title
+            })
+            console.log(movie.title+'has been added '+splitEmail[0]+' to /saved/'+userID+movieListID)
+            console.log(firebaseD.auth())
        
-      } catch (e) {
+        } catch (e) {
         console.error(e)
-      }
-    };
+        }
+   };
   
 
   return (
