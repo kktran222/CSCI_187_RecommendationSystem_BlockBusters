@@ -117,14 +117,14 @@ function Row({ title, fetchUrl, isLargeRow }) {
               className="row__modal">
               <Modal.Header>
                 <p>
-                {movie.title}
+                {movie.title}{movie.name}
                 <br></br>
                 <img src={`${base_url}${movie.poster_path}`} width="50%"></img>
                 </p>
               </Modal.Header>
               <Modal.Body>
                 <p>
-                  Released: {movie.release_date}
+                  Released: {movie.release_date}{movie.first_air_date}
                   <br></br><br></br>
                   Description: 
                   <br></br>
