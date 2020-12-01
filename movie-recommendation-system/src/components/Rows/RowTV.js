@@ -8,7 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const base_url = "https://images.tmdb.org/t/p/original/";
 
-function Row({ title, fetchUrl, isLargeRow }) {
+function RowTV({ title, fetchUrl, isLargeRow }) {
   const [movies, setMovies] = useState([]);
   const [userID, setUserID] = useState(0);
 
@@ -81,7 +81,7 @@ function Row({ title, fetchUrl, isLargeRow }) {
         {movies.map((movie) => (
           <>
             <img
-              title={movie.title}
+              title={movie.name}
               key={movie.id}
               onClick={() => showModal(movie)}
               //onClick={() => handleClick(movie)}
@@ -110,7 +110,7 @@ function Row({ title, fetchUrl, isLargeRow }) {
                   <br></br><br></br>
                   Rating: {movie.vote_average}/10
                   <br></br><br></br>
-                  <a href={'//www.themoviedb.org/movie/'+ movie.id} target="_blank">More info</a>
+                  <a href={'//www.themoviedb.org/tv/'+ movie.id} target="_blank">More info</a>
                 </p>
               </Modal.Body>
               <Modal.Footer>
@@ -126,4 +126,4 @@ function Row({ title, fetchUrl, isLargeRow }) {
   );
 }
 
-export default Row;
+export default RowTV;

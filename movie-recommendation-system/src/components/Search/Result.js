@@ -55,7 +55,7 @@ function Result({ movie }) {
           <p>
             {movie.title}{movie.name}
             <br></br>
-            <img src={`${base_url}${movie.poster_path}`} width="50%"></img>
+            <img className="modal-img" src={`${base_url}${movie.poster_path}`} width="50%"></img>
           </p>
         </Modal.Header>
         <Modal.Body>
@@ -76,6 +76,7 @@ function Result({ movie }) {
           <Button variant="secondary" onClick={() => addToList(movie)}>Add to My List</Button>
         </Modal.Footer>
       </Modal>
+      <br></br><br></br>
       <hr className="hr"></hr>
     </div>
   )

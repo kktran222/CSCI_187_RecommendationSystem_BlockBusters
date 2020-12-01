@@ -2,7 +2,6 @@
   color: white;
   margin-left: 20px;
   position: relative;
-  left: 15px;
   top: 15px;
 }
 
@@ -48,4 +47,28 @@
 
 .row__modal {
   color: black;
+}
+
+.modal-header {
+  background-color: rgb(10, 10, 10);
+  color: white;
+  font-size: 25px;
+}
+
+.modal-body {
+  background-color: rgb(15, 15, 15);
+  color: white;
+}
+
+.modal-footer {
+  background-color: rgb(10, 10, 10);
+  color: white;
+}
+
+.modal-content {
+  border-color: yellow;
+}
+
+.modal-img {
+  width: 150px;
 }
