@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../axios"; //axios is an alias here when importing. could actually be named anything you want so doesn't need to be named instance.
-import "./Row.css";
-import YouTube from "react-youtube";
 import database from 'firebase/database';
 import firebaseD from '../../firebaseConfig.js';
-import movieTrailer from "movie-trailer";
 import Button from 'react-bootstrap/Button';
-import MovieContent from "../Content/Content";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -14,7 +10,6 @@ const base_url = "https://images.tmdb.org/t/p/original/";
 
 function Row({ title, fetchUrl, isLargeRow }) {
   const [movies, setMovies] = useState([]);
-  const [trailerUrl, setTrailerUrl] = useState("");
   const [userID, setUserID] = useState(0);
 
   //  A snippet of code which runs based on a specific condition/variable
@@ -26,8 +21,9 @@ function Row({ title, fetchUrl, isLargeRow }) {
     async function fetchData() {
       const request = await axios.get(fetchUrl);
       setMovies(request.data.results);
-      setUserID(101);
-      
+      setUserID(firebaseD.auth().currentUser.uid);
+
+
       return request;
     }
     fetchData();
@@ -42,24 +38,6 @@ function Row({ title, fetchUrl, isLargeRow }) {
   };
 
 
-  // NEED TO TEST THIS SOMETHING IS WRONG
-  const handleClick = (movie) => {
-    /*
-    if (trailerUrl) {
-      setTrailerUrl("");
-    } else {
-      movieTrailer(movie?.name || "")
-        .then((url) => {
-          const urlParams = new URLSearchParams(new URL(url).search);
-          setTrailerUrl(urlParams.get("v"));
-        })
-        .catch((error) => console.log(error));
-    }
-    */
-
-    //console.log(movie.title);
-  };
-
   const [isOpen, setIsOpen] = React.useState(false);
   const [modalMovieID, setModalID] = React.useState(null);
 
@@ -72,25 +50,25 @@ function Row({ title, fetchUrl, isLargeRow }) {
   const hideModal = () => {
     setIsOpen(false);
   };
-  async function addToList (movie){
-   
-        try{
-        console.log(movie.id)
-        var movieListID = 1;
-        var splitEmail = firebaseD.auth().currentUser.email.split('@'); //this is vulnerable to attacks probably
-        await firebaseD.database().ref('/saved/' + splitEmail[0]).set({
-          ListID: movieListID,
-          ID: movie.id,
-          title: movie.title
-        })
-        console.log(movie.title + 'has been added to /saved/'+splitEmail[0])
-        console.log(firebaseD.auth())
-       
-      } catch (e) {
-        console.error(e)
-      }
-    };
-  
+
+  async function addToList(movie) {
+    try {
+      console.log(movie.id);
+      var movieListID = 1;//temp value
+      var splitEmail = firebaseD.auth().currentUser.email.split('@');
+
+      await firebaseD.database().ref('/saved/' + userID + '/' + movieListID + '/').push({
+        ID: movie.id,
+        title: movie.title
+      })
+      console.log(movie.title + 'has been added ' + splitEmail[0] + ' to /saved/' + userID + movieListID)
+      console.log(firebaseD.auth())
+
+    } catch (e) {
+      console.error(e)
+    }
+  };
+
 
   return (
     <div className="row">
@@ -136,14 +114,13 @@ function Row({ title, fetchUrl, isLargeRow }) {
                 </p>
               </Modal.Body>
               <Modal.Footer>
-                <button onClick={()=>addToList(movie)}>Add to My List</button>
-                <button onClick={hideModal}>Exit</button>
+                <Button variant="secondary" onClick={() => addToList(movie)}>Add to My List</Button>
+                <Button variant="secondary" onClick={hideModal}>Exit</Button>
               </Modal.Footer>
             </Modal>
           </>
         ))}
       </div>
-      {trailerUrl && <YouTube videoId={trailerUrl} opts={opts} />}
 
     </div>
   );
