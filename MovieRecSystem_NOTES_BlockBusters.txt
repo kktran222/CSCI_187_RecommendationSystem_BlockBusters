@@ -33,3 +33,10 @@ SIDE NOTES
 
     Genre ID: 
         https://www.themoviedb.org/talk/5daf6eb0ae36680011d7e6ee
+
+
+
+
+Firbase deploy tutorial:
+https://www.tutorialspoint.com/firebase/firebase_deploying.htm#:~:text=%20Firebase%20-%20Deploying%20%201%20Step%201,following%20command%20from%20the%20command%20prompt...%20More%20
+use the build folder for the public folder (generate the build folder using npm run-script build in the movie-recommendation folder)

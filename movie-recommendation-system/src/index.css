@@ -202,6 +202,7 @@ html,
   font-weight: 800;
   padding-bottom: 0.3rem;
   font-family: "Impact", Charcoal, sans-serif;
+  background-color: rgba(51,51,51,.5);
 }
 
 .banner__description {
