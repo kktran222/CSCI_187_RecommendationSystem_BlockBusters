@@ -1,4 +1,10 @@
+.myList{
+  text-align: center;
+}
 
+.myList-title{
+  color: white;
+}
 
 input{
   width: 400px;

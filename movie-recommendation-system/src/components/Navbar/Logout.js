@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import { Button } from "../Button/Button";
+import Button from 'react-bootstrap/Button';
 
 const Logout = ({ handleLogout }) => {
     return (
         <section classname="logout">
             <Link to="/logout">
-                <a className="nav-links" href="#" >
-                    <Button onClick={handleLogout}>
+                <a href="#">
+                    <Button id="logout-btn" variant="outline-light" onClick={handleLogout}>
                         Logout
                     </Button>
                 </a>

@@ -10,14 +10,12 @@ export const MenuItems = [
         title: "Movies",
         url: '#',
         cName: 'nav-links',
-        fontAwesome: 'fas fa-film',
         path: "/content"
     },
     {
         title: "TV Shows",
         url: '#',
         cName: 'nav-links',
-        fontAwesome: 'fas fa-tv',
         path: "/contenttv"
     },
     {

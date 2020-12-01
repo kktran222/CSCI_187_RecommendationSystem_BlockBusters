@@ -1,10 +1,8 @@
 // import React, { useState, useEffect } from "react";
 import React, { Component } from "react";
 import { MenuItems } from "./MenuItems"
-import { Button } from "../Button/Button"
 import { Link } from 'react-router-dom';
 import Logout from './Logout';
-import "./Navbar.css";
 
 
 class Navbar extends Component {
@@ -48,7 +46,7 @@ class Navbar extends Component {
         </ul>
 
         <Logout />
-      </nav >
+      </nav>
     );
   }
 }

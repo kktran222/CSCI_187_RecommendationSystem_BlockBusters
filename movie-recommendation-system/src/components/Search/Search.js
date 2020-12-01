@@ -27,6 +27,7 @@ class Search extends React.Component {
         const imgSize = "w500"
         return (
             <div className="search">
+                <h1 className="search-section-title">Movie Search</h1>
                 <section className="searchbox-wrap">
                     <input
                         type="text"
