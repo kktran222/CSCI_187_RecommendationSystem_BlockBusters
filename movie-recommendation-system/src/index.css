@@ -339,33 +339,36 @@ html,
 }
 
 .search-section-title{
-  color: rgb(255, 200, 54);
+  color: rgb(255, 201, 54);
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
 .searchbox-wrap{
   justify-self: center;
+  position: relative;
+  bottom: 20px;
 }
 
 .searchbox{
-  display: block;
-  background: rgb(255, 200, 54);
+  background: rgb(255, 201, 54);
   padding: 20px;
   font-size: larger;
   font-weight: 300;
-  color: grey;
+  color: rgb(0, 0, 0);
   margin-top: 20px;
   border: none;
   outline: none;
   transition: 0.4s ease-out;
 }
 
+::placeholder {
+  color: black;
+  opacity: 1;
+}
+
 .result {
-  padding-top: 15px;
-  padding-bottom: 25px;
-  padding-left: 15px;
-  padding-right: 100px;
+
   text-align: center;
 }
 
@@ -374,7 +377,7 @@ html,
 }
 
 .search-movies{
-  width: 300px;
+  width: 175px;
   color: white;
 }
 
@@ -383,7 +386,7 @@ html,
   margin-right: 20%;
   margin-top: 25px;
   margin-bottom: 25px;
-  text-align: left;
+  text-align: center;
 }
 /* SEARCH SUBFOLDER END*/
 
@@ -401,15 +404,50 @@ html,
 /* Footer.js Begin */
 .footer {
   color: white;
-  font-size: x-large;
+  font-size: 14px;
   font-weight: bolder;
-  background-color:rgb(255, 200, 54);
+  background-color:rgba(19, 18, 18, 0.842);
   padding: 10px;
   position: fixed;
   text-align: center;
-  margin-top: 20px;
   left:0;
-  bottom:0;
+  bottom: 0;
   right:0;
 }
 /* Footer.js End */
+
+/* User.js Begin */
+.user-box {
+  text-align: center;
+  color: white;
+}
+
+.user-header {
+  padding-bottom: 30px;
+}
+.inline-text_copy--active,
+.inline-text_input--active {
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  padding: 0;
+  background: none;
+  border: none;
+  border-bottom: 1px dashed #999999;
+  outline: none;
+}
+
+.inline-text_copy--active {
+  cursor: pointer;
+}
+
+.inline-text_copy--hidden,
+.inline-text_input--hidden {
+  display: none;
+}
+
+.inline-text_input--active {
+  border-bottom: 1px solid #666666;
+  text-align: left;
+}
+/* User.js End */

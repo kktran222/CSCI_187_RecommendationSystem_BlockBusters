@@ -31,12 +31,12 @@ class Search extends React.Component {
                 <section className="searchbox-wrap">
                     <input
                         type="text"
-                        placeholder="Search up a movie"
+                        placeholder="Search up a movie..."
                         className="searchbox"
                         onKeyDown={event => this.clickHandler(event)}
                     />
                 </section>
-
+                <hr className="hr"></hr>
 
                 <div className="results">
                     {
