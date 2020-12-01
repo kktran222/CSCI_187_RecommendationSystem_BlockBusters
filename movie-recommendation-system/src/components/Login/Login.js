@@ -1,5 +1,5 @@
 import React from "react";
-
+import Button from 'react-bootstrap/Button';
 
 const Login = (props) => {
   const {
@@ -18,7 +18,20 @@ const Login = (props) => {
   return (
     <section className="login">
       <div className="loginContainer">
-        <label>Username</label>
+        <div className="loginHeader">
+          {hasAccount ? (
+            <>
+              <h1>Welcome Back!</h1>
+              <h2>Login Here</h2>
+            </>
+          ) : (
+              <>
+                <h1>New Here?</h1>
+                <h2>Sign-up Now!</h2>
+              </>
+            )}
+        </div>
+        <label>Email</label>
         <input
           type="text"
           autoFocus
@@ -38,7 +51,7 @@ const Login = (props) => {
         <div className="btnContainer">
           {hasAccount ? (
             <>
-              <button onClick={handleLogin}>Sign In</button>
+              <Button variant="light" onClick={handleLogin}>Sign In</Button>
               <p>
                 Don't Have an account ?
               <span onClick={() => setHasAccount(!hasAccount)}> Sign Up</span>
@@ -46,7 +59,7 @@ const Login = (props) => {
             </>
           ) : (
               <>
-                <button onClick={handleSignup}>Sign Up</button>
+                <Button variant="light" onClick={handleLogin}>Sign Up</Button>
                 <p>
                   Have an account ?
                   <span onClick={() => setHasAccount(!hasAccount)}> Sign In</span>

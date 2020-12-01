@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import fire from "../../firebaseConfig";
 import Login from "./Login";
 import Logout from "../Navbar/Logout";
-import "./LoginPage.css";
 
 const LoginPage = () => {
     const [user, setUser] = useState('');

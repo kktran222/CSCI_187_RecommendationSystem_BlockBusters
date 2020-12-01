@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./Footer.css";
 
 // Should add Sublinks here!!!
 function Footer() {
