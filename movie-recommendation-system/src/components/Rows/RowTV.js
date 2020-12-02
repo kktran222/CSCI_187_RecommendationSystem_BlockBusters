@@ -94,11 +94,8 @@ function RowTV({ title, fetchUrl, isLargeRow }) {
               onHide={hideModal}
               className="row__modal">
               <Modal.Header>
-                <p>
                 {movie.title}{movie.name}
-                <br></br>
                 <img className="modal-img" src={`${base_url}${movie.poster_path}`} width="50%"></img>
-                </p>
               </Modal.Header>
               <Modal.Body>
                 <p>

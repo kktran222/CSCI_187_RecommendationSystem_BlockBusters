@@ -17,3 +17,25 @@ input{
   margin-bottom: 4px;
   margin-right: 10px;
 }
+
+.myList-title {
+  color: rgb(255, 201, 54);
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.my_row__header {
+  color: white;
+  padding-bottom: 10px;
+}
+
+.refresh-btn {
+  position: relative;
+  top: 20px;
+}
+
+.btn-secondary {
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
