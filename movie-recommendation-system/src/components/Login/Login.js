@@ -59,7 +59,7 @@ const Login = (props) => {
             </>
           ) : (
               <>
-                <Button variant="light" onClick={handleLogin}>Sign Up</Button>
+                <Button variant="light" onClick={handleSignup}>Sign Up</Button>
                 <p>
                   Have an account ?
                   <span onClick={() => setHasAccount(!hasAccount)}> Sign In</span>
