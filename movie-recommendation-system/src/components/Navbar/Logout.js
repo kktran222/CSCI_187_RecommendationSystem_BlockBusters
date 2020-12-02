@@ -5,7 +5,9 @@ import Button from 'react-bootstrap/Button';
 const Logout = ({ handleLogout }) => {
     return (
         <section classname="logout">
-            <Link to="/logout">
+            {/* the /logout path does not exist, and we need to send
+          the user to the home page for further login requests */}
+            <Link to="/">
                 <a href="#">
                     <Button id="logout-btn" variant="outline-light" onClick={handleLogout}>
                         Logout

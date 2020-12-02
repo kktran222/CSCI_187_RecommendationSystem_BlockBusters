@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import { MenuItems } from "./MenuItems"
 import { Link } from 'react-router-dom';
+import fire from "../../firebaseConfig";
 import Logout from './Logout';
 
 
@@ -45,7 +46,7 @@ class Navbar extends Component {
           })}
         </ul>
 
-        <Logout />
+        <Logout handleLogout={() => { fire.auth().signOut(); }} />
       </nav>
     );
   }
