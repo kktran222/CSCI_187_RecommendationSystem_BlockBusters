@@ -21,7 +21,7 @@ async function getUserMovies(userID, listID) {
   return temp;
 };
 
-const base_url = "https://images.tmdb.org/t/p/w92/";
+const base_url = "https://images.tmdb.org/t/p/w500/";
 
 async function getResponse(reqs) {
   var ret = [];
@@ -133,8 +133,8 @@ class MyList extends React.Component {
       return (
         <div ref={React.createRef()} className="myList">
 
-          <h1 className="myList-title">{'MyList'}</h1>
-
+          <h1 className="myList-title">{'My List'}</h1>
+          <hr className="hr"></hr>
           {/* container -> posters */}
           <div className="my_row__posters">
             {/* several row__posters(s) */}
@@ -142,6 +142,7 @@ class MyList extends React.Component {
             {this.state.list.map((movie) => (
         
               <>
+                <h3 className="my_row__header">{movie.title}{movie.name}</h3>
                 <img
                   title={movie.title}
                   key={movie.id}
@@ -151,16 +152,28 @@ class MyList extends React.Component {
                   src={`${base_url}${movie.poster_path}`}
                   alt={movie.name}
                 />
+                <hr className="hr"></hr>
                 <Modal show={this.state.mid === movie.id && this.state.open}
                   onHide={this.hideModal}
                   className="row__modal">
-                  <Modal.Header>{movie.title}</Modal.Header>
-                  <Modal.Body>{movie.overview}</Modal.Body>
+                  <Modal.Header>
+                    {movie.title}{movie.name}
+                    <img className="modal-img" src={`${base_url}${movie.poster_path}`} width="50%"></img>
+                  </Modal.Header>
+                  <Modal.Body>
+                    Released: {movie.release_date}{movie.first_air_date}
+                    <br></br><br></br>
+                    Description:
+                    <br></br>
+                    {movie.overview}
+                    <br></br><br></br>
+                    Rating: {movie.vote_average}/10
+                    </Modal.Body>
                   <Modal.Footer>
-                    <button onClick={this.hideModal}>Exit</button>
-                    <button onClick={() => 
+                    <Button variant="secondary" onClick={() => 
                         this.removeMovie(movie)
-                    }>Remove from MyList</button>
+                    }>Remove from MyList</Button>
+                    <Button variant="secondary" onClick={this.hideModal}>Exit</Button>
                   </Modal.Footer>
                 </Modal>
               </>
@@ -170,7 +183,7 @@ class MyList extends React.Component {
 
             ))}
           </div>
-          <Button variant="light" onClick={()=>this.setState({refresh: this.state.refresh+1})}>refresh</Button>
+          <Button className="refresh-btn" variant="light" onClick={()=>this.setState({refresh: this.state.refresh+1})}>Refresh</Button>
           <br />
           <br />
           <br />
