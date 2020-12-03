@@ -19,8 +19,7 @@ async function getUserMovies(userID, listID) {
     });
 
   });
-  console.log(tv)
-  console.log(movies)
+
   return [movies,tv];
 };
 
@@ -31,7 +30,7 @@ async function getResponse(reqs) {
   console.log(reqs)
   await reqs.map(req => axios.get(req)
     .then(function (results) {
-      console.log(results.data);
+      //console.log(results.data);
 
       ret.push(results.data)
 
@@ -41,7 +40,7 @@ async function getResponse(reqs) {
       console.log(error);
     })
     .then(function () {
-      console.log(req)
+      //console.log(req)
     }));
   var temp = await ret.resolve
 
@@ -73,17 +72,19 @@ class MyList extends React.Component {
           var id = 0;
           if(firebaseD.auth().currentUser) id = firebaseD.auth().currentUser.uid
           this.state={userID: id, list: [], refresh: 0, show: false, mid: null};
+          //console.log(this.state)
    }
   
 
   async componentDidMount(prevProps){
+       
+        
 
-
-        console.log()
-        var ret = await getUserMovies(this.state.id, 1);
+        var ret = await getUserMovies(this.state.userID, 1);
         var mov = ret[0]
         var tv = ret[1]
-        console.log(mov)
+        //console.log(ret)
+
         var myRequests = [];
         mov.map((id) => {
 
@@ -92,11 +93,11 @@ class MyList extends React.Component {
         tv.map((id) => {
             myRequests.push('https://api.themoviedb.org/3/tv/' + (id) + '?api_key=1be335fcb8ba9c525f9b9bd2124294d6&language=en-US')
         });
-        console.log(myRequests)
+        
         const x = await getResponse(myRequests);
-        console.log(x);
+        //console.log(x);
         await this.setState({list: x})
-        console.log(this.state.list)
+        //console.log(this.state.list)
         this.forceUpdate()
      
   } 
@@ -108,11 +109,8 @@ class MyList extends React.Component {
   };
   removeMovie = (movie) => {
         var temp = this.state.list;
-        console.log(movie.id)
-        console.log(temp[0].id)
         temp = temp.filter((x) => movie.id != x.id ) 
         removeFromList(movie.id, this.state.userID, 1);
-        console.log(temp)
         this.setState({list: temp})
         this.forceUpdate()
   }
