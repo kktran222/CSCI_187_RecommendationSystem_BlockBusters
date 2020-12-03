@@ -49,7 +49,6 @@ async function getResponse(reqs) {
   return ret;
 }
 
-
 async function removeFromList(movie, userID, listID) {
     var dbref = firebase.database().ref('/saved/' + userID + '/' + listID + '/')
     var marked = []
@@ -68,18 +67,14 @@ async function removeFromList(movie, userID, listID) {
 
 class MyList extends React.Component {
    constructor(props){
-          super(props);
-          var id = 0;
-          if(firebaseD.auth().currentUser) id = firebaseD.auth().currentUser.uid
-          this.state={userID: id, list: [], refresh: 0, show: false, mid: null};
-          //console.log(this.state)
+        super(props);
+        var id = 0;
+        if(firebaseD.auth().currentUser) id = firebaseD.auth().currentUser.uid
+        this.state={userID: id, list: [], refresh: 0, show: false, mid: null};
+        //console.log(this.state)
    }
   
-
   async componentDidMount(prevProps){
-       
-        
-
         var ret = await getUserMovies(this.state.userID, 1);
         var mov = ret[0]
         var tv = ret[1]
@@ -99,9 +94,7 @@ class MyList extends React.Component {
         await this.setState({list: x})
         //console.log(this.state.list)
         this.forceUpdate()
-     
   } 
-
 
   showModal = (movie) => {
     this.setState({open: true, mid: movie.id});
@@ -167,10 +160,6 @@ class MyList extends React.Component {
                   </Modal.Footer>
                 </Modal>
               </>
-
-
-
-
             ))}
           </div>
           <Button className="refresh-btn" variant="light" onClick={()=>this.setState({refresh: this.state.refresh+1})}>Refresh</Button>
@@ -181,6 +170,5 @@ class MyList extends React.Component {
       );
   }
 }
-
 
 export default MyList;
