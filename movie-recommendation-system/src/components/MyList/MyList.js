@@ -70,7 +70,9 @@ async function removeFromList(movie, userID, listID) {
 class MyList extends React.Component {
    constructor(props){
           super(props);
-          this.state={userID: firebaseD.auth().currentUser.uid, list: [], refresh: 0, show: false, mid: null};
+          var id = 0;
+          if(firebaseD.auth().currentUser) id = firebaseD.auth().currentUser.uid
+          this.state={userID: id, list: [], refresh: 0, show: false, mid: null};
    }
 
 
@@ -98,7 +100,7 @@ class MyList extends React.Component {
     }*/
 
         console.log()
-        var ret = await getUserMovies(firebaseD.auth().currentUser.uid, 1);
+        var ret = await getUserMovies(this.state.id, 1);
         var mov = ret[0]
         var tv = ret[1]
         console.log(mov)

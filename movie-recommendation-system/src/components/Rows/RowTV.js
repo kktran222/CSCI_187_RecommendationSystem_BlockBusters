@@ -21,7 +21,7 @@ function RowTV({ title, fetchUrl, isLargeRow }) {
     async function fetchData() {
       const request = await axios.get(fetchUrl);
       setMovies(request.data.results);
-      setUserID(firebaseD.auth().currentUser.uid);
+      if(firebaseD.auth().currentUser) setUserID(firebaseD.auth().currentUser.uid);
 
 
       return request;
