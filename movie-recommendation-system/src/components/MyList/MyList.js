@@ -66,7 +66,7 @@ async function removeFromList(movie, userID, listID) {
 });
 
 };
-// function MyList() {
+
 class MyList extends React.Component {
    constructor(props){
           super(props);
@@ -74,30 +74,10 @@ class MyList extends React.Component {
           if(firebaseD.auth().currentUser) id = firebaseD.auth().currentUser.uid
           this.state={userID: id, list: [], refresh: 0, show: false, mid: null};
    }
-
-
-  //const [userID, setUserID] = useState(firebaseD.auth().currentUser.uid);
-  //const [list, setList] = useState([]);
-  //const [refresh, setRefresh] = useState(0);
   
 
   async componentDidMount(prevProps){
 
-    /*async function fetchData() {
-      setUserID(firebaseD.auth().currentUser.uid);
-      var temp = await getUserMovies(userID, 1);
-      var myRequests = [];
-      temp.map((id) => {
-        myRequests.push('https://api.themoviedb.org/3/movie/' + (id) + '?api_key=1be335fcb8ba9c525f9b9bd2124294d6&language=en-US')
-      });
-      const x = await getResponse(myRequests);
-      console.log(x)
-      await setList(x);
-
-      await console.log(list);
-
-      return list;
-    }*/
 
         console.log()
         var ret = await getUserMovies(this.state.id, 1);
