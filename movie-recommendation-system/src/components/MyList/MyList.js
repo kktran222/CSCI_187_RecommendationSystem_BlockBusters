@@ -10,15 +10,17 @@ import Button from 'react-bootstrap/Button';
 
 
 async function getUserMovies(userID, listID) {
-  var temp = [];
+  var movies = [];
+  var tv = [];
   await firebase.database().ref('/saved/' + userID + '/' + listID + '/').once('value').then((snapshot) => {
     snapshot.forEach((i) => {
-      temp.push(i.val().ID)
+      movies.push(i.val().ID);
+      tv.push(i.val().mid)
     });
 
   });
-  console.log(temp)
-  return temp;
+
+  return [movies,tv];
 };
 
 const base_url = "https://images.tmdb.org/t/p/w500/";
@@ -28,7 +30,7 @@ async function getResponse(reqs) {
   console.log(reqs)
   await reqs.map(req => axios.get(req)
     .then(function (results) {
-      console.log(results.data);
+      //console.log(results.data);
 
       ret.push(results.data)
 
@@ -38,7 +40,7 @@ async function getResponse(reqs) {
       console.log(error);
     })
     .then(function () {
-      console.log(req)
+      //console.log(req)
     }));
   var temp = await ret.resolve
 
@@ -46,7 +48,6 @@ async function getResponse(reqs) {
   console.log(ret);
   return ret;
 }
-
 
 async function removeFromList(movie, userID, listID) {
     var dbref = firebase.database().ref('/saved/' + userID + '/' + listID + '/')
@@ -56,59 +57,44 @@ async function removeFromList(movie, userID, listID) {
         console.log(movie)
         console.log(i.val().ID)
         console.log(i.ref)
-        if (i.val().ID == movie) {
+        if (i.val().ID == movie || i.val().mid == movie) {
             i.ref.set(null)
         }
         });
 });
 
 };
-// function MyList() {
+
 class MyList extends React.Component {
    constructor(props){
-          super(props);
-          this.state={userID: firebaseD.auth().currentUser.uid, list: [], refresh: 0, show: false, mid: null};
+        super(props);
+        var id = 0;
+        if(firebaseD.auth().currentUser) id = firebaseD.auth().currentUser.uid
+        this.state={userID: id, list: [], refresh: 0, show: false, mid: null};
+        //console.log(this.state)
    }
-
-
-  //const [userID, setUserID] = useState(firebaseD.auth().currentUser.uid);
-  //const [list, setList] = useState([]);
-  //const [refresh, setRefresh] = useState(0);
   
-
   async componentDidMount(prevProps){
+        var ret = await getUserMovies(this.state.userID, 1);
+        var mov = ret[0]
+        var tv = ret[1]
+        //console.log(ret)
 
-    /*async function fetchData() {
-      setUserID(firebaseD.auth().currentUser.uid);
-      var temp = await getUserMovies(userID, 1);
-      var myRequests = [];
-      temp.map((id) => {
-        myRequests.push('https://api.themoviedb.org/3/movie/' + (id) + '?api_key=1be335fcb8ba9c525f9b9bd2124294d6&language=en-US')
-      });
-      const x = await getResponse(myRequests);
-      console.log(x)
-      await setList(x);
-
-      await console.log(list);
-
-      return list;
-    }*/
-
-        console.log()
-        var temp = await getUserMovies(firebaseD.auth().currentUser.uid, 1);
-        console.log(temp)
         var myRequests = [];
-        temp.map((id) => {
-            myRequests.push('https://api.themoviedb.org/3/movie/' + (id) + '?api_key=1be335fcb8ba9c525f9b9bd2124294d6&language=en-US')
-        });
-        const x = await getResponse(myRequests);
-        console.log(x);
-        await this.setState({list: x})
-        console.log(this.state.list)
-        this.forceUpdate()
-     
-  } 
+        mov.map((id) => {
 
+            if(id>0) myRequests.push('https://api.themoviedb.org/3/movie/' + (id) + '?api_key=1be335fcb8ba9c525f9b9bd2124294d6&language=en-US')
+        });
+        tv.map((id) => {
+            myRequests.push('https://api.themoviedb.org/3/tv/' + (id) + '?api_key=1be335fcb8ba9c525f9b9bd2124294d6&language=en-US')
+        });
+        
+        const x = await getResponse(myRequests);
+        //console.log(x);
+        await this.setState({list: x})
+        //console.log(this.state.list)
+        this.forceUpdate()
+  } 
 
   showModal = (movie) => {
     this.setState({open: true, mid: movie.id});
@@ -116,11 +102,8 @@ class MyList extends React.Component {
   };
   removeMovie = (movie) => {
         var temp = this.state.list;
-        console.log(movie.id)
-        console.log(temp[0].id)
         temp = temp.filter((x) => movie.id != x.id ) 
         removeFromList(movie.id, this.state.userID, 1);
-        console.log(temp)
         this.setState({list: temp})
         this.forceUpdate()
   }
@@ -177,10 +160,6 @@ class MyList extends React.Component {
                   </Modal.Footer>
                 </Modal>
               </>
-
-
-
-
             ))}
           </div>
           <Button className="refresh-btn" variant="light" onClick={()=>this.setState({refresh: this.state.refresh+1})}>Refresh</Button>
@@ -191,6 +170,5 @@ class MyList extends React.Component {
       );
   }
 }
-
 
 export default MyList;

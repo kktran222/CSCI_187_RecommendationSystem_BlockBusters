@@ -21,7 +21,7 @@ function RowTV({ title, fetchUrl, isLargeRow }) {
     async function fetchData() {
       const request = await axios.get(fetchUrl);
       setMovies(request.data.results);
-      setUserID(firebaseD.auth().currentUser.uid);
+      if(firebaseD.auth().currentUser) setUserID(firebaseD.auth().currentUser.uid);
 
 
       return request;
@@ -44,7 +44,7 @@ function RowTV({ title, fetchUrl, isLargeRow }) {
   const showModal = (movie) => {
     setIsOpen(true);
     setModalID(movie.id);
-    console.log(movie.title + 'has been inspected')
+    console.log(movie.name + 'has been inspected')
   };
 
   const hideModal = () => {
@@ -56,10 +56,11 @@ function RowTV({ title, fetchUrl, isLargeRow }) {
       console.log(movie.id);
       var movieListID = 1;//temp value
       var splitEmail = firebaseD.auth().currentUser.email.split('@');
-
+      movie.title=movie.name
       await firebaseD.database().ref('/saved/' + userID + '/' + movieListID + '/').push({
-        ID: movie.id,
-        title: movie.title
+        ID: -1,
+        title: movie.title,
+        mid: movie.id
       })
       console.log(movie.title + 'has been added ' + splitEmail[0] + ' to /saved/' + userID + movieListID)
       console.log(firebaseD.auth())

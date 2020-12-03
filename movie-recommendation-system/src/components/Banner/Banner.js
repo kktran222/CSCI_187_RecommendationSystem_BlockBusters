@@ -3,7 +3,7 @@ import axios from "../../axios";
 import requests from "../../requests";
 import Button from 'react-bootstrap/Button';
 import Modal from "react-bootstrap/Modal";
-
+import firebaseD from "../../firebaseConfig.js"
 const base_url = "https://images.tmdb.org/t/p/original/";
 
 function Banner() {
@@ -40,7 +40,23 @@ function Banner() {
   const hideModal = () => {
     setIsOpen(false);
   };
+  async function addToList(movie) {
+    try {
+      console.log(movie.id);
+      var movieListID = 1;//temp value
+      var splitEmail = firebaseD.auth().currentUser.email.split('@');
+      var userID = firebaseD.auth().currentUser.uid
+      await firebaseD.database().ref('/saved/' + userID + '/' + movieListID + '/').push({
+        ID: movie.id,
+        title: movie.title
+      })
+      console.log(movie.title + 'has been added ' + splitEmail[0] + ' to /saved/' + userID + movieListID)
+      console.log(firebaseD.auth())
 
+    } catch (e) {
+      console.error(e)
+    }
+  };
   return (
     <header
       className="banner"
@@ -85,10 +101,11 @@ function Banner() {
               </p>
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" onClick={hideModal}>Exit</Button>
+            <Button variant="secondary" onClick={() => addToList(movie)}>Add to MyList</Button>
+            <Button variant="secondary" onClick={hideModal}>Exit</Button>
             </Modal.Footer>
           </Modal>
-          <button className="banner__button">My List</button>
+
         </div>
 
         {/* description */}
