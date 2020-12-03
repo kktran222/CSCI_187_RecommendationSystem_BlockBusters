@@ -10,15 +10,18 @@ import Button from 'react-bootstrap/Button';
 
 
 async function getUserMovies(userID, listID) {
-  var temp = [];
+  var movies = [];
+  var tv = [];
   await firebase.database().ref('/saved/' + userID + '/' + listID + '/').once('value').then((snapshot) => {
     snapshot.forEach((i) => {
-      temp.push(i.val().ID)
+      movies.push(i.val().ID);
+      tv.push(i.val().mid)
     });
 
   });
-  console.log(temp)
-  return temp;
+  console.log(tv)
+  console.log(movies)
+  return [movies,tv];
 };
 
 const base_url = "https://images.tmdb.org/t/p/w500/";
@@ -56,7 +59,7 @@ async function removeFromList(movie, userID, listID) {
         console.log(movie)
         console.log(i.val().ID)
         console.log(i.ref)
-        if (i.val().ID == movie) {
+        if (i.val().ID == movie || i.val().mid == movie) {
             i.ref.set(null)
         }
         });
@@ -95,12 +98,19 @@ class MyList extends React.Component {
     }*/
 
         console.log()
-        var temp = await getUserMovies(firebaseD.auth().currentUser.uid, 1);
-        console.log(temp)
+        var ret = await getUserMovies(firebaseD.auth().currentUser.uid, 1);
+        var mov = ret[0]
+        var tv = ret[1]
+        console.log(mov)
         var myRequests = [];
-        temp.map((id) => {
-            myRequests.push('https://api.themoviedb.org/3/movie/' + (id) + '?api_key=1be335fcb8ba9c525f9b9bd2124294d6&language=en-US')
+        mov.map((id) => {
+
+            if(id>0) myRequests.push('https://api.themoviedb.org/3/movie/' + (id) + '?api_key=1be335fcb8ba9c525f9b9bd2124294d6&language=en-US')
         });
+        tv.map((id) => {
+            myRequests.push('https://api.themoviedb.org/3/tv/' + (id) + '?api_key=1be335fcb8ba9c525f9b9bd2124294d6&language=en-US')
+        });
+        console.log(myRequests)
         const x = await getResponse(myRequests);
         console.log(x);
         await this.setState({list: x})
