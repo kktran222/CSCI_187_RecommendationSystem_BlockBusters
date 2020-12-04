@@ -36,7 +36,7 @@ class Search extends React.Component {
     render() {
         return (
             <div className="search">
-                <h1 className="search-section-title">Movie Search</h1>
+                <h1 className="search-section-title">Movie/TV Search</h1>
                 <section className="searchbox-wrap">
                     <input
                         type="text"

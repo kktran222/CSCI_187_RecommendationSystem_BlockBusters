@@ -6,16 +6,18 @@ import firebaseD from "../../firebaseConfig.js"
 const base_url = "https://images.tmdb.org/t/p/original/";
 
 function Result_TVShow({ tvShow }) {
-    const baseImgUrl = "https://image.tmdb.org/t/p"
-    const imgSize = "w92"
+    const baseImgUrl = "https://image.tmdb.org/t/p";
+    const imgSize = "w92";
 
     const [isOpen, setIsOpen] = React.useState(false);
     const [modalTVShowID, setModalID] = React.useState(null);
+    const [text, setText] = React.useState('Add to MyList');
 
     const showModal = (tvShow) => {
+        setText('Add to MyList');
         setIsOpen(true);
         setModalID(tvShow.id);
-        console.log(tvShow.title + 'has been inspected')
+        console.log(tvShow.name + 'has been inspected');
     };
 
     const hideModal = () => {
@@ -24,16 +26,18 @@ function Result_TVShow({ tvShow }) {
 
     async function addToList(tvShow) {//copied from Row.js
         try {
+            setText('Added!')
             console.log(tvShow.id);
             var userID = firebaseD.auth().currentUser.uid
             var tvShowListID = 1;//temp value
             var splitEmail = firebaseD.auth().currentUser.email.split('@');
 
             await firebaseD.database().ref('/saved/' + userID + '/' + tvShowListID + '/').push({
-                ID: tvShow.id,
-                title: tvShow.title
-            })
-            console.log(tvShow.title + 'has been added ' + splitEmail[0] + ' to /saved/' + userID + tvShowListID)
+                ID: -1,
+                title: tvShow.name,
+                tid: tvShow.id
+            })          
+            console.log(tvShow.name + 'has been added ' + splitEmail[0] + ' to /saved/' + userID + tvShowListID)
             console.log(firebaseD.auth())
 
         } catch (e) {
@@ -44,9 +48,9 @@ function Result_TVShow({ tvShow }) {
     return (
         <div className="result">
             {/* TV Shows */}
-            <h3 style={{ color: "white" }}>{tvShow.title}</h3>
+            <h3 style={{ color: "white" }}>{tvShow.name}</h3>
             <br></br>
-            <img className="search-movies" title={tvShow.title} key={tvShow.id} src={`${base_url}${tvShow.poster_path}`} />
+            <img className="search-movies" title={tvShow.name} key={tvShow.id} src={`${base_url}${tvShow.poster_path}`} />
             <p className="search-overview-text" style={{ color: "white" }}>{tvShow.overview}</p>
             <Button variant="outline-primary" onClick={() => showModal(tvShow)}>About</Button>
             <Modal show={modalTVShowID === tvShow.id && isOpen}
@@ -54,7 +58,7 @@ function Result_TVShow({ tvShow }) {
                 className="row__modal">
                 <Modal.Header>
                     <p>
-                        {tvShow.title}{tvShow.name}
+                        {tvShow.name}
                         <br></br>
                         <img className="modal-img" src={`${base_url}${tvShow.poster_path}`} width="50%"></img>
                     </p>
@@ -73,8 +77,8 @@ function Result_TVShow({ tvShow }) {
                     </p>
                 </Modal.Body>
                 <Modal.Footer>
+                    <Button variant="secondary" onClick={() => addToList(tvShow)}>{text}</Button>
                     <Button variant="secondary" onClick={hideModal}>Exit</Button>
-                    <Button variant="secondary" onClick={() => addToList(tvShow)}>Add to My List</Button>
                 </Modal.Footer>
             </Modal>
             <br></br><br></br>
