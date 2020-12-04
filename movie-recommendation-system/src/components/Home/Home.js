@@ -15,9 +15,11 @@ function Home() {
 
     return (
         <div className="home-blurb">
-            <h1 className="home-title">HOME</h1>
-            <h2 className="home-email">Welcome {email}</h2>
+            {/* <h1 className="home-title">HOME</h1> */}
+            <h1 className="home-welcome">Welcome</h1>
+            <h1 className="home-email">{email}</h1>
             <p>This is BlockBusters. A Movie Recommendation App for CSCI 187. Feel free to find the movies you want to watch!</p>
+            <img className="home-img" src="https://www.clker.com/cliparts/0/N/o/T/h/1/yellow-film-strip-hi.png"></img>
         </div>
     )
 }
