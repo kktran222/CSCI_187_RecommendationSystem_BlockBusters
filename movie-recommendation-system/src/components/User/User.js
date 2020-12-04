@@ -1,6 +1,7 @@
 import React, { Component, useState } from 'react';
 import ReactDOM from "react-dom";
 import InlineEdit from "./inlineEdit";
+import firebase from 'firebase';
 
 function User() {
 
@@ -8,9 +9,21 @@ function User() {
     const [storedText1, setStoredText1] = useState("Enter last name...");
     const [storedText2, setStoredText2] = useState("Enter favorite genres...");
 
+    var user = firebase.auth().currentUser;
+    var name, email, photoUrl, uid, emailVerified;
+
+    if (user != null) {
+        name = user.displayName;
+        email = user.email;
+        photoUrl = user.photoURL;
+        emailVerified = user.emailVerified;
+        uid = user.uid;
+    }
+
     return (
         <div className="user-box">
             <h1 className="user-header">My Profile</h1>
+            <h3 className="user-email">{email}</h3>
             <p>
                 First Name: &nbsp;&nbsp;&nbsp;
                 <InlineEdit text={storedText} onSetText={text => setStoredText(text)} />
