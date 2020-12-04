@@ -17,7 +17,7 @@ function Home() {
         <div className="home-blurb">
             <h1 className="home-title">HOME</h1>
             <h2 className="home-email">Welcome {email}</h2>
-            <p>This is BockBuster. A Movie Recommendation App for CSCI 187. Feel free to find the movies you want to watch!</p>
+            <p>This is BlockBusters. A Movie Recommendation App for CSCI 187. Feel free to find the movies you want to watch!</p>
         </div>
     )
 }
