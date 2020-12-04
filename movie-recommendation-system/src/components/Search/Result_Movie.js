@@ -5,17 +5,19 @@ import firebaseD from "../../firebaseConfig.js"
 
 const base_url = "https://images.tmdb.org/t/p/original/";
 
-function Result({ movie }) {
-  const baseImgUrl = "https://image.tmdb.org/t/p"
-  const imgSize = "w92"
+function Result_Movie({ movie }) {
+  const baseImgUrl = "https://image.tmdb.org/t/p";
+  const imgSize = "w92";
 
   const [isOpen, setIsOpen] = React.useState(false);
   const [modalMovieID, setModalID] = React.useState(null);
+  const [text, setText] = React.useState('Add to MyList');
 
   const showModal = (movie) => {
+    setText('Add to MyList');
     setIsOpen(true);
     setModalID(movie.id);
-    console.log(movie.title + 'has been inspected')
+    console.log(movie.title + 'has been inspected');
   };
 
   const hideModal = () => {
@@ -24,25 +26,28 @@ function Result({ movie }) {
 
   async function addToList(movie) {//copied from Row.js
     try {
-      console.log(movie.id);
-      var userID = firebaseD.auth().currentUser.uid
-      var movieListID = 1;//temp value
-      var splitEmail = firebaseD.auth().currentUser.email.split('@');
+        setText('Added!')
+        console.log(movie.id);
+        var userID = firebaseD.auth().currentUser.uid
+        var movieListID = 1;//temp value
+        var splitEmail = firebaseD.auth().currentUser.email.split('@');
 
-      await firebaseD.database().ref('/saved/' + userID + '/' + movieListID + '/').push({
-        ID: movie.id,
-        title: movie.title
-      })
-      console.log(movie.title + 'has been added ' + splitEmail[0] + ' to /saved/' + userID + movieListID)
-      console.log(firebaseD.auth())
+        await firebaseD.database().ref('/saved/' + userID + '/' + movieListID + '/').push({
+            ID: movie.id,
+            title: movie.title,
+            tid: -1
+        })
+        console.log(movie.title + 'has been added ' + splitEmail[0] + ' to /saved/' + userID + movieListID)
+        console.log(firebaseD.auth())
 
     } catch (e) {
-      console.error(e)
+        console.error(e)
     }
   };
 
   return (
     <div className="result">
+      {/* Movies */}
       <h3 style={{ color: "white" }}>{movie.title}</h3>
       <br></br>
       <img className="search-movies" title={movie.title} key={movie.id} src={`${base_url}${movie.poster_path}`} />
@@ -72,8 +77,8 @@ function Result({ movie }) {
           </p>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={hideModal}>Exit</Button>
-          <Button variant="secondary" onClick={() => addToList(movie)}>Add to My List</Button>
+            <Button variant="secondary" onClick={() => addToList(movie)}>{text}</Button>
+            <Button variant="secondary" onClick={hideModal}>Exit</Button>
         </Modal.Footer>
       </Modal>
       <br></br><br></br>
@@ -82,4 +87,4 @@ function Result({ movie }) {
   )
 }
 
-export default Result;
+export default Result_Movie;
