@@ -28,8 +28,7 @@ async function getResponse(reqs){
 
 function MyRow({ title, idArray, isLargeRow }) {
   const [movies, setMovies] = useState([]);
-  const [trailerUrl, setTrailerUrl] = useState("");
-  
+
   //  A snippet of code which runs based on a specific condition/variable
   useEffect(() => {
     //Notes:
@@ -60,14 +59,6 @@ function MyRow({ title, idArray, isLargeRow }) {
     fetchData();
   }, [idArray]);
 
- 
-  const opts = {
-    height: "390",
-    width: "100%",
-    playervars: {
-      autoplay: 1,
-    },
-  };
 
 
   const handleClick = (movie) => {

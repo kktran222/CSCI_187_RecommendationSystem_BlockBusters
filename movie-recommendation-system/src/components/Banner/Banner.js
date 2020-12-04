@@ -30,8 +30,10 @@ function Banner() {
 
   const [isOpen, setIsOpen] = React.useState(false);
   const [modalMovieID, setModalID] = React.useState(null);
+  const [text, setText] = React.useState('Add to MyList');
 
   const showModal = (movie) => {
+    setText('Add to MyList')
     setIsOpen(true);
     setModalID(movie.id);
     console.log(movie.title + 'has been inspected')
@@ -42,6 +44,7 @@ function Banner() {
   };
   async function addToList(movie) {
     try {
+      setText('Added!')
       console.log(movie.id);
       var movieListID = 1;//temp value
       var splitEmail = firebaseD.auth().currentUser.email.split('@');
@@ -77,7 +80,7 @@ function Banner() {
         {/* div > 2 buttons */}
         <div className="banner__buttons">
           <button className="banner__button" onClick={() => showModal(movie)}>More Info</button>
-          <Modal show={modalMovieID === movie.id && isOpen}
+          <Modal show={modalMovieID === movie?.id && isOpen}
             onHide={hideModal}
             className="row__modal">
             <Modal.Header>
@@ -101,11 +104,10 @@ function Banner() {
               </p>
             </Modal.Body>
             <Modal.Footer>
-            <Button variant="secondary" onClick={() => addToList(movie)}>Add to MyList</Button>
+            <Button variant="secondary" onClick={() => addToList(movie)}>{text}</Button>
             <Button variant="secondary" onClick={hideModal}>Exit</Button>
             </Modal.Footer>
           </Modal>
-
         </div>
 
         {/* description */}
