@@ -1,11 +1,9 @@
 import React from "react";
-import './MyList.css';
 import firebase from 'firebase/app';
 import firebaseD from '../../firebaseConfig.js';
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "../../axios";
-import '../Rows/Row.css';
 import Button from 'react-bootstrap/Button';
 
 
@@ -20,7 +18,7 @@ async function getUserMovies(userID, listID) {
 
   });
 
-  return [movies,tv];
+  return [movies, tv];
 };
 
 const base_url = "https://images.tmdb.org/t/p/w500/";
@@ -48,6 +46,7 @@ async function getResponse(reqs) {
 }
 
 async function removeFromList(movie, userID, listID) {
+
     var dbref = firebase.database().ref('/saved/' + userID + '/' + listID + '/')
     await dbref.once('value').then((snapshot) => {
         snapshot.forEach((i) => {
@@ -59,6 +58,7 @@ async function removeFromList(movie, userID, listID) {
         }
         });
 });
+
 
 };
 
@@ -95,17 +95,18 @@ class MyList extends React.Component {
 
   showModal = (movie) => {
     this.setState({open: true, tid: movie.id, text: 'Add to myList'});
+
     console.log(movie.title + 'has been inspected')
   };
   removeMovie = (movie) => {
-        var temp = this.state.list;
-        temp = temp.filter((x) => movie.id !== x.id ) 
-        removeFromList(movie.id, this.state.userID, 1);
-        this.setState({list: temp})
-        this.forceUpdate()
+    var temp = this.state.list;
+    temp = temp.filter((x) => movie.id !== x.id)
+    removeFromList(movie.id, this.state.userID, 1);
+    this.setState({ list: temp })
+    this.forceUpdate()
   }
   hideModal = () => {
-    this.setState({open: false});
+    this.setState({ open: false });
   };
   render() {
   console.log(this.state.refresh)
@@ -145,26 +146,26 @@ class MyList extends React.Component {
                     <br></br><br></br>
                     Description:
                     <br></br>
-                    {movie.overview}
-                    <br></br><br></br>
+                  {movie.overview}
+                  <br></br><br></br>
                     Rating: {movie.vote_average}/10
                     </Modal.Body>
-                  <Modal.Footer>
-                    <Button variant="secondary" onClick={() => 
-                        this.removeMovie(movie)
-                    }>Remove from MyList</Button>
-                    <Button variant="secondary" onClick={this.hideModal}>Exit</Button>
-                  </Modal.Footer>
-                </Modal>
-              </>
-            ))}
-          </div>
-          <Button className="refresh-btn" variant="light" onClick={()=>this.setState({refresh: this.state.refresh+1})}>{'Refresh'}</Button>
-          <br />
-          <br />
-          <br />
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={() =>
+                    this.removeMovie(movie)
+                  }>Remove from MyList</Button>
+                  <Button variant="secondary" onClick={this.hideModal}>Exit</Button>
+                </Modal.Footer>
+              </Modal>
+            </>
+          ))}
         </div>
-      );
+        <Button className="refresh-btn" variant="light" onClick={() => this.setState({ refresh: this.state.refresh + 1 })}>{'Refresh'}</Button>
+        <br />
+        <br />
+        <br />
+      </div>
+    );
   }
 }
 
