@@ -20,9 +20,42 @@ October 25, 2020
     npm i react-youtube
     npm i movie-trailer
 
+    //install firebase
+    npm i firebase
+
+    npm install dompurify
 
 
+November 10, 2020
+    Navigation Bar updates (Front-end)
+        Link to subpages (use Route)
+            Currently, Movie & TV Show leads to Movie page
+            Home and Login goes to login page
+    
+    Log in (Front-end) added
+        could type in username and password
 
+    Issues
+        Fix Button Issues
+        Login Page is weird. Needs to fill entire page. 
+        Navigation Bar needs to be better stylized 
+
+        Inner Pages Needed (anything you click that doesn't go anywhere)
+
+
+November 13, 2020
+    Login Page 
+        link up with firebase authentication seems to be working.
+        Issues
+            Could have header to distinguish when we are in Sign-in or Sign up
+            Need to fix logout. 
+                When you log in, it should take you to movie page, I didn't get it working. 
+                I also have to figure out how to configure navbar logout when clicked on to login-page. 
+
+        
+
+        
+    
 SIDE NOTES
     Conventions: 
         Components have first letter of the first word capitalized.
