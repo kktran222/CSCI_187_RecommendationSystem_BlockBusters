@@ -48,13 +48,13 @@ function Row({ title, fetchUrl, isLargeRow }) {
     try {
       setText('Added!')
       console.log(movie.id);
-      var movieListID = 1;//temp value
+      var movieListID = 1;//myList
       var splitEmail = firebaseD.auth().currentUser.email.split('@');
 
       await firebaseD.database().ref('/saved/' + userID + '/' + movieListID + '/').push({
         ID: movie.id,
         title: movie.title,
-        mid: -1 //indicates entry is not a movie
+        tid: -1 //indicates entry is not a tv show
       })
       console.log(movie.title + 'has been added ' + splitEmail[0] + ' to /saved/' + userID + movieListID)
       console.log(firebaseD.auth())

@@ -15,7 +15,7 @@ async function getUserMovies(userID, listID) {
   await firebase.database().ref('/saved/' + userID + '/' + listID + '/').once('value').then((snapshot) => {
     snapshot.forEach((i) => {
       movies.push(i.val().ID);
-      tv.push(i.val().mid)
+      tv.push(i.val().tid)
     });
 
   });
@@ -54,7 +54,7 @@ async function removeFromList(movie, userID, listID) {
         console.log(movie)
         console.log(i.val().ID)
         console.log(i.ref)
-        if (i.val().ID === movie || i.val().mid === movie) {
+        if (i.val().ID === movie || i.val().tid === movie) {
             i.ref.set(null)
         }
         });
@@ -67,7 +67,7 @@ class MyList extends React.Component {
         super(props);
         var id = 0;
         if(firebaseD.auth().currentUser) id = firebaseD.auth().currentUser.uid
-        this.state={userID: id, list: [], refresh: 0, show: false, mid: null};
+        this.state={userID: id, list: [], refresh: 0, show: false, tid: null};
         //console.log(this.state)
    }
   
@@ -94,7 +94,7 @@ class MyList extends React.Component {
   } 
 
   showModal = (movie) => {
-    this.setState({open: true, mid: movie.id, text: 'Add to myList'});
+    this.setState({open: true, tid: movie.id, text: 'Add to myList'});
     console.log(movie.title + 'has been inspected')
   };
   removeMovie = (movie) => {
@@ -133,7 +133,7 @@ class MyList extends React.Component {
                   alt={movie.name}
                 />
                 <hr className="hr"></hr>
-                <Modal show={this.state.mid === movie.id && this.state.open}
+                <Modal show={this.state.tid === movie.id && this.state.open}
                   onHide={this.hideModal}
                   className="row__modal">
                   <Modal.Header>

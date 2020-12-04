@@ -34,7 +34,7 @@ function RowTV({ title, fetchUrl, isLargeRow }) {
     setText('Add to MyList')
     setIsOpen(true);
     setModalID(movie.id);
-    console.log(movie.name + 'has been inspected')
+    console.log(movie.name + ' has been inspected')
   };
 
   const hideModal = () => {
@@ -45,13 +45,13 @@ function RowTV({ title, fetchUrl, isLargeRow }) {
     try {
       setText('Added!')
       console.log(movie.id);
-      var movieListID = 1;//temp value
+      var movieListID = 1;//mylist
       var splitEmail = firebaseD.auth().currentUser.email.split('@');
       
       await firebaseD.database().ref('/saved/' + userID + '/' + movieListID + '/').push({
         ID: -1, //indicates not a movie
         title: movie.name,
-        mid: movie.id
+        tid: movie.id
       })
       console.log(movie.name + 'has been added ' + splitEmail[0] + ' to /saved/' + userID + movieListID)
       console.log(firebaseD.auth())

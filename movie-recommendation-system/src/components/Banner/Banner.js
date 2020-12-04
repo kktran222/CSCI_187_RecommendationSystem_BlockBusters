@@ -46,12 +46,13 @@ function Banner() {
     try {
       setText('Added!')
       console.log(movie.id);
-      var movieListID = 1;//temp value
+      var movieListID = 1; //would represent which list if multiple lists were implemented
       var splitEmail = firebaseD.auth().currentUser.email.split('@');
       var userID = firebaseD.auth().currentUser.uid
       await firebaseD.database().ref('/saved/' + userID + '/' + movieListID + '/').push({
         ID: movie.id,
-        title: movie.title
+        title: movie.title,
+        tid: -1
       })
       console.log(movie.title + 'has been added ' + splitEmail[0] + ' to /saved/' + userID + movieListID)
       console.log(firebaseD.auth())
