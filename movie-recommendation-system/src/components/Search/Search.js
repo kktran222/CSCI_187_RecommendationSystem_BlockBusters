@@ -29,7 +29,6 @@ class Search extends React.Component {
                 this.setState({ tvResults: tvShowResults.data.results });
                 const similarTVShows = tvShowResults.data.results.slice(0);
                 this.setState({ similarTVShows })
-                console.log(similarTVShows);
             }));
         }
     }
