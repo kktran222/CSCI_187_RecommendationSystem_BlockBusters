@@ -83,7 +83,7 @@ class MyList extends React.Component {
             if(id>0) myRequests.push('https://api.themoviedb.org/3/movie/' + (id) + '?api_key=1be335fcb8ba9c525f9b9bd2124294d6&language=en-US')
         });
         tv.map((id) => {
-            myRequests.push('https://api.themoviedb.org/3/tv/' + (id) + '?api_key=1be335fcb8ba9c525f9b9bd2124294d6&language=en-US')
+            if(id>0) myRequests.push('https://api.themoviedb.org/3/tv/' + (id) + '?api_key=1be335fcb8ba9c525f9b9bd2124294d6&language=en-US')
         });
         
         const x = await getResponse(myRequests);
