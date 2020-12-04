@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import fire from "../../firebaseConfig";
 import Login from "./Login";
 import Logout from "../Navbar/Logout";
+import Home from '../Home/Home';
 
 const LoginPage = () => {
     const [user, setUser] = useState('');
@@ -77,10 +78,11 @@ const LoginPage = () => {
         authListener();
     }, []);
 
+    // <Logout handleLogout={handleLogout} />
     return (
         <div className="LoginForm">
             {user ? (
-                <Logout handleLogout={handleLogout} />
+                <Home />
             ) : (
                     <Login
                         email={email}

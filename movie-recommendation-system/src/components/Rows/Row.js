@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../axios"; //axios is an alias here when importing. could actually be named anything you want so doesn't need to be named instance.
-import database from 'firebase/database';
 import firebaseD from '../../firebaseConfig.js';
 import Button from 'react-bootstrap/Button';
 import Modal from "react-bootstrap/Modal";
@@ -21,27 +20,21 @@ function Row({ title, fetchUrl, isLargeRow }) {
     async function fetchData() {
       const request = await axios.get(fetchUrl);
       setMovies(request.data.results);
-      setUserID(firebaseD.auth().currentUser.uid);
-
+      if(firebaseD.auth().currentUser) setUserID(firebaseD.auth().currentUser.uid);
 
       return request;
     }
     fetchData();
   }, [fetchUrl]);
 
-  const opts = {
-    height: "390",
-    width: "100%",
-    playervars: {
-      autoplay: 1,
-    },
-  };
-
-
   const [isOpen, setIsOpen] = React.useState(false);
   const [modalMovieID, setModalID] = React.useState(null);
+  const [text, setText] = React.useState('Add to MyList');
 
   const showModal = (movie) => {
+    console.log(movie.title)
+    console.log(movie.name)
+    setText('Add to MyList')
     setIsOpen(true);
     setModalID(movie.id);
     console.log(movie.title + 'has been inspected')
@@ -53,13 +46,15 @@ function Row({ title, fetchUrl, isLargeRow }) {
 
   async function addToList(movie) {
     try {
+      setText('Added!')
       console.log(movie.id);
-      var movieListID = 1;//temp value
+      var movieListID = 1;//myList
       var splitEmail = firebaseD.auth().currentUser.email.split('@');
 
       await firebaseD.database().ref('/saved/' + userID + '/' + movieListID + '/').push({
         ID: movie.id,
-        title: movie.title
+        title: movie.title,
+        tid: -1 //indicates entry is not a tv show
       })
       console.log(movie.title + 'has been added ' + splitEmail[0] + ' to /saved/' + userID + movieListID)
       console.log(firebaseD.auth())
@@ -68,7 +63,6 @@ function Row({ title, fetchUrl, isLargeRow }) {
       console.error(e)
     }
   };
-
 
   return (
     <div className="row">
@@ -111,7 +105,7 @@ function Row({ title, fetchUrl, isLargeRow }) {
                 </p>
               </Modal.Body>
               <Modal.Footer>
-                <Button variant="secondary" onClick={() => addToList(movie)}>Add to My List</Button>
+                <Button variant="secondary" onClick={() => addToList(movie)}>{text}</Button>
                 <Button variant="secondary" onClick={hideModal}>Exit</Button>
               </Modal.Footer>
             </Modal>

@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Home from './components/Home/Home';
 import LoginPage from './components/Login/LoginPage';
 import Content from './components/Content/Content';
 import ContentTV from './components/Content/ContentTV';
@@ -16,7 +17,9 @@ function App() {
       <div className="app">
         <Navbar />
         <Switch>
-          <Route path="/" exact component={Home} />
+          <Route path="/" exact component={LoginPage} />
+          <Route path="/home" component={Home}></Route>
+          {/* <Route path="/LoginPage" component={LoginPage}></Route> */}
           <Route path="/myList" component={MyList}></Route>
           <Route path="/content" component={Content}></Route>
           <Route path="/contenttv" component={ContentTV}></Route>
@@ -28,15 +31,6 @@ function App() {
     </Router>
   );
 }
-
-const Home = () => (
-  <Router>
-    <div>
-      <Route path="/" component={LoginPage}></Route>
-    </div>
-  </Router>
-
-);
 
 export default App;
 

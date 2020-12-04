@@ -3,7 +3,7 @@ import axios from "../../axios";
 import requests from "../../requests";
 import Button from 'react-bootstrap/Button';
 import Modal from "react-bootstrap/Modal";
-
+import firebaseD from "../../firebaseConfig.js"
 const base_url = "https://images.tmdb.org/t/p/original/";
 
 function Banner() {
@@ -30,8 +30,10 @@ function Banner() {
 
   const [isOpen, setIsOpen] = React.useState(false);
   const [modalMovieID, setModalID] = React.useState(null);
+  const [text, setText] = React.useState('Add to MyList');
 
   const showModal = (movie) => {
+    setText('Add to MyList')
     setIsOpen(true);
     setModalID(movie.id);
     console.log(movie.title + 'has been inspected')
@@ -40,7 +42,25 @@ function Banner() {
   const hideModal = () => {
     setIsOpen(false);
   };
+  async function addToList(movie) {
+    try {
+      setText('Added!')
+      console.log(movie.id);
+      var movieListID = 1; //would represent which list if multiple lists were implemented
+      var splitEmail = firebaseD.auth().currentUser.email.split('@');
+      var userID = firebaseD.auth().currentUser.uid
+      await firebaseD.database().ref('/saved/' + userID + '/' + movieListID + '/').push({
+        ID: movie.id,
+        title: movie.title,
+        tid: -1
+      })
+      console.log(movie.title + 'has been added ' + splitEmail[0] + ' to /saved/' + userID + movieListID)
+      console.log(firebaseD.auth())
 
+    } catch (e) {
+      console.error(e)
+    }
+  };
   return (
     <header
       className="banner"
@@ -61,7 +81,7 @@ function Banner() {
         {/* div > 2 buttons */}
         <div className="banner__buttons">
           <button className="banner__button" onClick={() => showModal(movie)}>More Info</button>
-          <Modal show={modalMovieID === movie.id && isOpen}
+          <Modal show={modalMovieID === movie?.id && isOpen}
             onHide={hideModal}
             className="row__modal">
             <Modal.Header>
@@ -85,10 +105,10 @@ function Banner() {
               </p>
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" onClick={hideModal}>Exit</Button>
+            <Button variant="secondary" onClick={() => addToList(movie)}>{text}</Button>
+            <Button variant="secondary" onClick={hideModal}>Exit</Button>
             </Modal.Footer>
           </Modal>
-          <button className="banner__button">My List</button>
         </div>
 
         {/* description */}

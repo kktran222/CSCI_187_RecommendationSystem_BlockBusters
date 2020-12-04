@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../axios"; //axios is an alias here when importing. could actually be named anything you want so doesn't need to be named instance.
-import database from 'firebase/database';
 import firebaseD from '../../firebaseConfig.js';
 import Button from 'react-bootstrap/Button';
 import Modal from "react-bootstrap/Modal";
@@ -21,54 +20,46 @@ function RowTV({ title, fetchUrl, isLargeRow }) {
     async function fetchData() {
       const request = await axios.get(fetchUrl);
       setMovies(request.data.results);
-      setUserID(firebaseD.auth().currentUser.uid);
-
-
+      if(firebaseD.auth().currentUser) setUserID(firebaseD.auth().currentUser.uid);
       return request;
     }
     fetchData();
   }, [fetchUrl]);
 
-  const opts = {
-    height: "390",
-    width: "100%",
-    playervars: {
-      autoplay: 1,
-    },
-  };
-
-
   const [isOpen, setIsOpen] = React.useState(false);
   const [modalMovieID, setModalID] = React.useState(null);
+  const [text, setText] = React.useState('Add to MyList');
 
-  const showModal = (movie) => {
+  const showModal = (tv) => {
+    setText('Add to MyList')
     setIsOpen(true);
-    setModalID(movie.id);
-    console.log(movie.title + 'has been inspected')
+    setModalID(tv.id);
+    console.log(tv.name + ' has been inspected')
   };
 
   const hideModal = () => {
     setIsOpen(false);
   };
 
-  async function addToList(movie) {
+  async function addToList(tv) {
     try {
-      console.log(movie.id);
-      var movieListID = 1;//temp value
+      setText('Added!')
+      console.log(tv.id);
+      var tvShowListID = 1;//mylist
       var splitEmail = firebaseD.auth().currentUser.email.split('@');
-
-      await firebaseD.database().ref('/saved/' + userID + '/' + movieListID + '/').push({
-        ID: movie.id,
-        title: movie.title
+      
+      await firebaseD.database().ref('/saved/' + userID + '/' + tvShowListID + '/').push({
+        ID: -1, //indicates not a movie
+        title: tv.name,
+        tid: tv.id
       })
-      console.log(movie.title + 'has been added ' + splitEmail[0] + ' to /saved/' + userID + movieListID)
+      console.log(tv.name + 'has been added ' + splitEmail[0] + ' to /saved/' + userID + tvShowListID)
       console.log(firebaseD.auth())
 
     } catch (e) {
       console.error(e)
     }
   };
-
 
   return (
     <div className="row">
@@ -78,40 +69,40 @@ function RowTV({ title, fetchUrl, isLargeRow }) {
       <div className="row__posters">
         {/* several row__posters(s) */}
 
-        {movies.map((movie) => (
+        {movies.map((tv) => (
           <>
             <img
-              title={movie.name}
-              key={movie.id}
-              onClick={() => showModal(movie)}
+              title={tv.name}
+              key={tv.id}
+              onClick={() => showModal(tv)}
               //onClick={() => handleClick(movie)}
               className={`row__poster ${isLargeRow && "row__posterLarge"}`}
-              src={`${base_url}${isLargeRow ? movie.poster_path : movie.backdrop_path
+              src={`${base_url}${isLargeRow ? tv.poster_path : tv.backdrop_path
                 }`}
-              alt={movie.name}
+              alt={tv.name}
             />
-            <Modal show={modalMovieID === movie.id && isOpen}
+            <Modal show={modalMovieID === tv.id && isOpen}
               onHide={hideModal}
               className="row__modal">
               <Modal.Header>
-                {movie.title}{movie.name}
-                <img className="modal-img" src={`${base_url}${movie.poster_path}`} width="50%"></img>
+                {tv.title}{tv.name}
+                <img className="modal-img" src={`${base_url}${tv.poster_path}`} width="50%"></img>
               </Modal.Header>
               <Modal.Body>
                 <p>
-                  Released: {movie.release_date}{movie.first_air_date}
+                  Released: {tv.release_date}{tv.first_air_date}
                   <br></br><br></br>
                   Description: 
                   <br></br>
-                  {movie.overview}
+                  {tv.overview}
                   <br></br><br></br>
-                  Rating: {movie.vote_average}/10
+                  Rating: {tv.vote_average}/10
                   <br></br><br></br>
-                  <a href={'//www.themoviedb.org/tv/'+ movie.id} target="_blank">More info</a>
+                  <a href={'//www.themoviedb.org/tv/'+ tv.id} target="_blank">More info</a>
                 </p>
               </Modal.Body>
               <Modal.Footer>
-                <Button variant="secondary" onClick={() => addToList(movie)}>Add to My List</Button>
+                <Button variant="secondary" onClick={() => addToList(tv)}>{text}</Button>
                 <Button variant="secondary" onClick={hideModal}>Exit</Button>
               </Modal.Footer>
             </Modal>

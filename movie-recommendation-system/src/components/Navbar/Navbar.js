@@ -21,7 +21,7 @@ class Navbar extends Component {
         {/* Link to home next time!!! */}
         <img
           className="nav__logo"
-          src="https://bendblockbuster.com/wp-content/themes/blockbuster/assets/images/blockbuster-logo.svg"
+          src="https://drive.google.com/uc?id=1KRq6mhHHi5xH5hE8njYyK2njhiQrIslq"
           alt="BlockBuster Logo"
         />
 
