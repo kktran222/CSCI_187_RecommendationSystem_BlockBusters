@@ -184,6 +184,21 @@ html,
 
 
 
+/* Home.js Begin*/
+.home-blurb{
+  color: white;
+  text-align: center;
+}
+.home-title{
+  color: #ffc836;
+}
+.home-email{
+  color: #ffc836;
+}
+/* Home.js End */
+
+
+
 /* Banner.js Begin */
 .banner {
   color: white;
