@@ -85,11 +85,8 @@ function Banner() {
             onHide={hideModal}
             className="row__modal">
             <Modal.Header>
-              <p>
                 {movie.title}{movie.name}
-                <br></br>
-                <img src={`${base_url}${movie.poster_path}`} width="50%"></img>
-              </p>
+                <img className="modal-img" src={`${base_url}${movie.poster_path}`} width="50%"></img>
             </Modal.Header>
             <Modal.Body>
               <p>

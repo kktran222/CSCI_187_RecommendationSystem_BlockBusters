@@ -271,7 +271,6 @@ html,
   margin-left: 20px;
   position: relative;
   top: 15px;
-  left: 30px;
 }
 
 .row__posters {
@@ -335,7 +334,7 @@ html,
 }
 
 .modal-content {
-  border-color: white;
+  border-color: grey;
 }
 
 .modal-img {
@@ -574,7 +573,12 @@ input{
 }
 
 .user-header {
-  padding-bottom: 30px;
+  color: rgb(255, 201, 54);
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.user-email{
+  margin-bottom: 25px;
 }
 .inline-text_copy--active,
 .inline-text_input--active {
