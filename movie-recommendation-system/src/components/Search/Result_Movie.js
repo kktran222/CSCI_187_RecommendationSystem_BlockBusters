@@ -5,7 +5,7 @@ import firebaseD from "../../firebaseConfig.js"
 
 const base_url = "https://images.tmdb.org/t/p/original/";
 
-function Result({ movie }) {
+function Result_Movie({ movie }) {
   const baseImgUrl = "https://image.tmdb.org/t/p"
   const imgSize = "w92"
 
@@ -43,6 +43,7 @@ function Result({ movie }) {
 
   return (
     <div className="result">
+      {/* Movies */}
       <h3 style={{ color: "white" }}>{movie.title}</h3>
       <br></br>
       <img className="search-movies" title={movie.title} key={movie.id} src={`${base_url}${movie.poster_path}`} />
@@ -82,4 +83,4 @@ function Result({ movie }) {
   )
 }
 
-export default Result;
+export default Result_Movie;
